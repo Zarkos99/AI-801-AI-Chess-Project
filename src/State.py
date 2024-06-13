@@ -1,4 +1,7 @@
-import chess_enums
+
+from chess_enums import Space
+from chess_enums import Player
+from chess_enums import Piece
 import numpy
 
 
@@ -9,32 +12,32 @@ class Action:
     rookA_moved: numpy.array  # of bool, PlayerCount
     rookH_moved: numpy.array  # of bool, PlayerCount
     moves: list  # of Actions
-    player: chess_enums.Player
+    player: Player
     check: bool
 
     def __init__(self) -> None:
-        board = {chess_enums.Space.___}
-        board[chess_enums.Space.A2] = board[chess_enums.Space.B2] = board[chess_enums.Space.C2] = board[chess_enums.Space.D2] = board[
-            chess_enums.Space.E2] = board[chess_enums.Space.F2] = board[chess_enums.Space.G2] = board[chess_enums.Space.H2] = chess_enums.Piece.W_P
-        board[chess_enums.Space.B1] = board[chess_enums.Space.G1] = chess_enums.Piece.W_N
-        board[chess_enums.Space.C1] = board[chess_enums.Space.F1] = chess_enums.Piece.W_B
-        board[chess_enums.Space.A1] = board[chess_enums.Space.H1] = chess_enums.Piece.W_R
-        board[chess_enums.Space.D1] = chess_enums.Piece.W_Q
-        board[chess_enums.Space.E1] = chess_enums.Piece.W_K
+        board = {Space.___}
+        board[Space.A2] = board[Space.B2] = board[Space.C2] = board[Space.D2] = board[
+            Space.E2] = board[Space.F2] = board[Space.G2] = board[Space.H2] = Piece.W_P
+        board[Space.B1] = board[Space.G1] = Piece.W_N
+        board[Space.C1] = board[Space.F1] = Piece.W_B
+        board[Space.A1] = board[Space.H1] = Piece.W_R
+        board[Space.D1] = Piece.W_Q
+        board[Space.E1] = Piece.W_K
 
-        board[chess_enums.Space.A7] = board[chess_enums.Space.B7] = board[chess_enums.Space.C7] = board[chess_enums.Space.D7] = board[
-            chess_enums.Space.E7] = board[chess_enums.Space.F7] = board[chess_enums.Space.G7] = board[chess_enums.Space.H7] = chess_enums.Piece.B_P
-        board[chess_enums.Space.B8] = board[chess_enums.Space.G8] = chess_enums.Piece.B_N
-        board[chess_enums.Space.C8] = board[chess_enums.Space.F8] = chess_enums.Piece.B_B
-        board[chess_enums.Space.A8] = board[chess_enums.Space.H8] = chess_enums.Piece.B_R
-        board[chess_enums.Space.D8] = chess_enums.Piece.B_Q
-        board[chess_enums.Space.E8] = chess_enums.Piece.B_K
+        board[Space.A7] = board[Space.B7] = board[Space.C7] = board[Space.D7] = board[
+            Space.E7] = board[Space.F7] = board[Space.G7] = board[Space.H7] = Piece.B_P
+        board[Space.B8] = board[Space.G8] = Piece.B_N
+        board[Space.C8] = board[Space.F8] = Piece.B_B
+        board[Space.A8] = board[Space.H8] = Piece.B_R
+        board[Space.D8] = Piece.B_Q
+        board[Space.E8] = Piece.B_K
 
-        self.king_space = {chess_enums.Space.E1, chess_enums.Space.E8}
+        self.king_space = {Space.E1, Space.E8}
         self.king_moved = {False, False}
         self.rookA_moved = {False, False}
         self.rookH_moved = {False, False}
-        self.player = chess_enums.Player(len(self.moves) % 2)
+        self.player = Player(len(self.moves) % 2)
         self.check = False
 
     @classmethod

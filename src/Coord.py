@@ -1,18 +1,19 @@
-import chess_enums
+from chess_enums import Space
 
-
-class Action:
+class Coord:
     c: int
     r: int
-
-    def __init__(self, par_space: chess_enums.Space) -> None:
-        self.c = par_space / 8
-        self.r = par_space % 8
 
     def __init__(self, par_c: int, par_r: int) -> None:
         self.c = par_c
         self.r = par_r
 
     @classmethod
-    def __call__(self) -> chess_enums.Space:
-        return chess_enums.Space(8*self.c + self.r)
+    def fromSpace(cls, par_space: Space) -> None:
+        c = par_space / 8
+        r = par_space % 8
+        cls(c, r)
+
+    @classmethod
+    def __call__(self) -> Space:
+        return Space(8*self.c + self.r)

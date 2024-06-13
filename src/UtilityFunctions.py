@@ -1,24 +1,25 @@
-import chess_enums
-import State
-import Action
+from chess_enums import Player
+from chess_enums import Space
+from chess_enums import Piece
+from chess_enums import W_LAST
 import Coord
 import numpy
 
 
-def IsCheckForPlayer(par_board: numpy.array, par_player: chess_enums.Player, par_king: chess_enums.Space):
+def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space):
     coord = Coord(par_king)
     check = False
 
     # Check Horizontal and Vertical movements
-    def h_and_v(par_space: chess_enums.Space):
+    def h_and_v(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != chess_enums.Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == chess_enums.Piece.W_R or piece == chess_enums.Piece.B_R or piece == chess_enums.Piece.W_Q or piece == chess_enums.Piece.B_Q):
+        if (piece != Piece.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece.W_R or piece == Piece.B_R or piece == Piece.W_Q or piece == Piece.B_Q):
                 check = True
                 return
 
-            if (piece == chess_enums.Piece.W_K or piece == chess_enums.Piece.B_K):
+            if (piece == Piece.W_K or piece == Piece.B_K):
                 coord_king = Coord(par_space)
 
                 if (abs(coord.c - coord_king.c) + abs(coord.r - coord_king.r) == 1):
@@ -31,21 +32,21 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: chess_enums.Player, par
         return check
 
     # Check Diagonal movements
-    def diag(par_space: chess_enums.Space):
+    def diag(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != chess_enums.Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == chess_enums.Piece.W_B or piece == chess_enums.Piece.B_B or piece == chess_enums.Piece.W_Q or piece == chess_enums.Piece.B_Q):
+        if (piece != Piece.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece.W_B or piece == Piece.B_B or piece == Piece.W_Q or piece == Piece.B_Q):
                 check = True
                 return
 
             coord_piece = Coord(par_space)
             if (abs(coord.c - coord_piece.c) + abs(coord.r - coord_piece.r) == 2):
-                if (piece == chess_enums.Piece.W_K or piece == chess_enums.Piece.B_K):
+                if (piece == Piece.W_K or piece == Piece.B_K):
                     check = True
                     return
-                if (piece == chess_enums.Piece.W_P or piece == chess_enums.Piece.B_P):
-                    if ((par_player == chess_enums.Player.White and (coord_piece.r == coord.r + 1)) or (par_player == chess_enums.Player.Black and (coord_piece.r == coord.r - 1))):
+                if (piece == Piece.W_P or piece == Piece.B_P):
+                    if ((par_player == Player.White and (coord_piece.r == coord.r + 1)) or (par_player == Player.Black and (coord_piece.r == coord.r - 1))):
                         check = True
                         return
 
@@ -55,11 +56,11 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: chess_enums.Player, par
         return check
 
     # Check L movements
-    def L(par_space: chess_enums.Space):
+    def L(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != chess_enums.Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == chess_enums.Piece.W_N or piece == chess_enums.Piece.B_N):
+        if (piece != Piece.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece.W_N or piece == Piece.B_N):
                 check = True
                 return
 
@@ -67,7 +68,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: chess_enums.Player, par
     return check
 
 
-def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_space: chess_enums.Space):
+def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_space: Space):
     coord = Coord(par_space)
 
     for h in range(-1, 2):
@@ -80,14 +81,14 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_
                 space = dest()
                 par_function(space)
 
-                if (par_board[space] != chess_enums.Piece.___):
+                if (par_board[space] != Piece.___):
                     break
 
                 dest.c += h
                 dest.r += v
 
 
-def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: chess_enums.Space):
+def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space):
     coord = Coord(par_space)
 
     for h in range(-1, 2, 2):
@@ -97,14 +98,14 @@ def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: chess_
                 space = dest()
                 par_function(space)
 
-                if (par_board[space] != chess_enums.Piece.___):
+                if (par_board[space] != Piece.___):
                     break
 
                 dest.c += h
                 dest.r += v
 
 
-def ForEachSpaceL(par_function, par_space: chess_enums.Space):
+def ForEachSpaceL(par_function, par_space: Space):
     coord = Coord(par_space)
 
     for c in range(-2, 3, c):
@@ -120,6 +121,6 @@ def ForEachSpaceL(par_function, par_space: chess_enums.Space):
             par_function(space)
 
 
-def ToPlayer(par_piece: chess_enums.Piece) -> chess_enums.Player:
-    assert (par_piece != chess_enums.Piece.___)
-    return chess_enums.Player.White if par_piece <= chess_enums.W_LAST else chess_enums.Player.Black
+def ToPlayer(par_piece: Piece) -> Player:
+    assert (par_piece != Piece.___)
+    return Player.White if par_piece <= W_LAST else Player.Black

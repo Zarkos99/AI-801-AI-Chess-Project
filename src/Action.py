@@ -1,13 +1,15 @@
-import chess_enums
+from chess_enums import Space
+from chess_enums import Piece
+
 
 
 class Action:
-    orig: chess_enums.Space
-    dest: chess_enums.Space
-    promotion: chess_enums.Piece
+    orig: Space
+    dest: Space
+    promotion: Piece
 
     # Default parameters of initialization function are equivalent to Checkmate Action
-    def __init__(self, par_orig: chess_enums.Space = chess_enums.Space.A1, par_dest: chess_enums.Space = chess_enums.Space.A1, par_promotion: chess_enums.Piece = chess_enums.Piece.___) -> None:
+    def __init__(self, par_orig: Space = Space.A1, par_dest: Space = Space.A1, par_promotion: Piece = Piece.___) -> None:
         self.orig = par_orig
         self.dest = par_dest
         self.promotion = par_promotion
