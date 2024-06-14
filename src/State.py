@@ -2,18 +2,10 @@
 from chess_enums import Space
 from chess_enums import Player
 from chess_enums import Piece
-import numpy
 
 
 class State:
-    board: numpy.array  # of Piece, SpaceCount
-    king_space: numpy.array  # of Space, PlayerCount
-    king_moved: numpy.array  # of bool, PlayerCount
-    rookA_moved: numpy.array  # of bool, PlayerCount
-    rookH_moved: numpy.array  # of bool, PlayerCount
     moves: list  # of Actions
-    player: Player
-    check: bool
 
     def __init__(self) -> None:
         board = [Piece.___]*len(Space)

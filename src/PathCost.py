@@ -4,10 +4,6 @@ import State
 
 
 class PathCost:
-    piece_weight: float = 1.0
-    child_count: int = 0
-    min_child_cost: float = 0.0
-    expanded: bool = False
 
     def __init__(self, par_state: State) -> None:
         player = par_state.player
