@@ -5,7 +5,7 @@ from chess_enums import Piece
 import numpy
 
 
-class Action:
+class State:
     board: numpy.array  # of Piece, SpaceCount
     king_space: numpy.array  # of Space, PlayerCount
     king_moved: numpy.array  # of bool, PlayerCount
@@ -16,7 +16,7 @@ class Action:
     check: bool
 
     def __init__(self) -> None:
-        board = {Space.___}
+        board = [Piece.___]*len(Space)
         board[Space.A2] = board[Space.B2] = board[Space.C2] = board[Space.D2] = board[
             Space.E2] = board[Space.F2] = board[Space.G2] = board[Space.H2] = Piece.W_P
         board[Space.B1] = board[Space.G1] = Piece.W_N
@@ -40,7 +40,6 @@ class Action:
         self.player = Player(len(self.moves) % 2)
         self.check = False
 
-    @classmethod
     def __eq__(self, par_state) -> bool:
         self.board = par_state.board
         self.moves = par_state.moves

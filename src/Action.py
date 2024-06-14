@@ -2,7 +2,6 @@ from chess_enums import Space
 from chess_enums import Piece
 
 
-
 class Action:
     orig: Space
     dest: Space
@@ -14,6 +13,5 @@ class Action:
         self.dest = par_dest
         self.promotion = par_promotion
 
-    @classmethod
     def __eq__(self, par_rhs) -> bool:
         return self.orig == par_rhs.orig and self.dest == par_rhs.dest and self.promotion == par_rhs.promotion

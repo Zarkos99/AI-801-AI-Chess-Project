@@ -35,7 +35,8 @@ enum Piece : uint8_t {
 };
 
 enum Space {
-  A1,
+  START = 0
+  A1 = 1
   A2,
   A3,
   A4,

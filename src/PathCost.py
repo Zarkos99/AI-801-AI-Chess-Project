@@ -3,7 +3,7 @@ from chess_enums import Player
 import State
 
 
-class Action:
+class PathCost:
     piece_weight: float = 1.0
     child_count: int = 0
     min_child_cost: float = 0.0
@@ -55,11 +55,6 @@ class Action:
         self.min_child_cost = 0.0
         self.expanded = False
 
-    @classmethod
-    def __eq__(self, par_rhs) -> bool:
-        return self.orig == par_rhs.orig and self.dest == par_rhs.dest and self.promotion == par_rhs.promotion
-
-    @classmethod
     def __float__(self) -> float:
         if not self.expanded:
             return self.piece_weight

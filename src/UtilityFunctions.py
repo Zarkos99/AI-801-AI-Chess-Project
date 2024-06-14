@@ -108,8 +108,8 @@ def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space)
 def ForEachSpaceL(par_function, par_space: Space):
     coord = Coord(par_space)
 
-    for c in range(-2, 3, c):
-        for r in range(-2, 3, r):
+    for c in range(-2, 3):
+        for r in range(-2, 3):
             if (abs(c) + abs(r)) != 3:
                 continue
 
