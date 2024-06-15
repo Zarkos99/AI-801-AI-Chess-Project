@@ -8,8 +8,8 @@ class Coord:
 
     @classmethod
     def fromSpace(cls, par_space: Space) -> None:
-        c = par_space.value / 8
-        r = par_space.value % 8
+        c = par_space / 8
+        r = par_space % 8
         return cls(c, r)
 
     def toSpace(self) -> Space:
