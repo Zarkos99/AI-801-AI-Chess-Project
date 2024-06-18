@@ -1,3 +1,4 @@
+"""notebook checkpoint""" # [invalid-name]
 # ---
 # jupyter:
 #   jupytext:
@@ -14,4 +15,3 @@
 # ---
 
 print("Hello. This will be a great project.")
-

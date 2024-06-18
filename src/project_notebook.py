@@ -1,3 +1,4 @@
+"""Module providing a function to test jupyter notebook."""
 # ---
 # jupyter:
 #   jupytext:
@@ -14,4 +15,3 @@
 # ---
 
 print("Hello. This will be a great project.")
-
