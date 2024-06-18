@@ -32,5 +32,4 @@ def to_player(par_piece):
 
     if par_piece.value <= W_LAST.value:
         return Player.White
-    else:
-        return Player.Black
+    return Player.Black
