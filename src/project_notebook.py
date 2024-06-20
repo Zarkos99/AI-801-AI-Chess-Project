@@ -14,19 +14,16 @@
 # ---
 
 from Action import Action
-from ChessEnums import Player
-from ChessEnums import Piece
-from ChessEnums import Space
+from Actions import Actions
+from ChessEnums import Piece, Player, Space
 import ChessEnums
 from Coord import Coord
 from PathCost import PathCost
 from Result import Result
 from State import State
-from UtilityFunctions import IsCheckForPlayer
-from UtilityFunctions import ForEachSpaceHorizontalAndVertical
-from UtilityFunctions import ForEachSpaceDiagonal
-from UtilityFunctions import ForEachSpaceL
-from UtilityFunctions import ToPlayer
+from UtilityFunctions import    ForEachSpaceDiagonal,\
+                                ForEachSpaceHorizontalAndVertical,\
+                                ForEachSpaceL, IsCheckForPlayer, ToPlayer
 
 print("Hello. This will be a great project.")
 
@@ -48,8 +45,10 @@ print(State())
 
 def Func(par_space): pass
 print(IsCheckForPlayer(State().board, Player.White, Space.E1))
-print(ForEachSpaceHorizontalAndVertical(Func, State().board, Space.A1))
-print(ForEachSpaceDiagonal(Func, State().board, Space.A3))
+print(ForEachSpaceHorizontalAndVertical(Func, Space.A1, State().board))
+print(ForEachSpaceDiagonal(Func, Space.A3, State().board))
 print(ForEachSpaceL(Func, Space.A2))
+
+print(len(Actions(State())))
 
 # Please add new classes and functions here to be printed
