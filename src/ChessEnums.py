@@ -1,4 +1,4 @@
-from enum import IntEnum, global_enum
+from enum import IntEnum
 
 Player = IntEnum('Player', ['White', 'Black'], start=0)
 

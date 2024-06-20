@@ -1,13 +1,13 @@
-from chess_enums import Player
-from chess_enums import Space
-from chess_enums import Piece
-from chess_enums import W_LAST
-import Coord
+from ChessEnums import Player
+from ChessEnums import Space
+from ChessEnums import Piece
+from ChessEnums import W_LAST
+from Coord import Coord
 import numpy
 
 
 def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space):
-    coord = Coord(par_king)
+    coord = Coord.fromSpace(par_king)
     check = False
 
     # Check Horizontal and Vertical movements
@@ -69,7 +69,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
 
 
 def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_space: Space):
-    coord = Coord(par_space)
+    coord = Coord.fromSpace(par_space)
 
     for h in range(-1, 2):
         for v in range(-1, 2):
@@ -78,7 +78,7 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_
 
             dest = Coord(int(coord.c + h), int(coord.r + v))
             while 0 <= dest.c and dest.c < 8 and 0 <= dest.r and dest.r < 8:
-                space = dest()
+                space = dest.toSpace()
                 par_function(space)
 
                 if (par_board[space] != Piece.___):
@@ -89,13 +89,13 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_
 
 
 def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space):
-    coord = Coord(par_space)
+    coord = Coord.fromSpace(par_space)
 
     for h in range(-1, 2, 2):
         for v in range(-1, 2, 2):
             dest = Coord(int(coord.c + h), int(coord.r + v))
             while 0 <= dest.c and dest.c < 8 and 0 <= dest.r and dest.r < 8:
-                space = dest()
+                space = dest.toSpace()
                 par_function(space)
 
                 if (par_board[space] != Piece.___):
@@ -106,7 +106,7 @@ def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space)
 
 
 def ForEachSpaceL(par_function, par_space: Space):
-    coord = Coord(par_space)
+    coord = Coord.fromSpace(par_space)
 
     for c in range(-2, 3):
         for r in range(-2, 3):
@@ -117,7 +117,7 @@ def ForEachSpaceL(par_function, par_space: Space):
                     or coord.r + r < 0 or coord.r + r >= 8):
                 continue
 
-            space = Coord(coord.c + c, coord.r + r)
+            space = Coord(coord.c + c, coord.r + r).toSpace()
             par_function(space)
 
 
