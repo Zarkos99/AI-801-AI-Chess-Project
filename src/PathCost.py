@@ -1,5 +1,5 @@
-from chess_enums import Piece
-from chess_enums import Player
+from ChessEnums import Piece
+from ChessEnums import Player
 import State
 
 
