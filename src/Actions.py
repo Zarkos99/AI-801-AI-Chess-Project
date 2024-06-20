@@ -1,13 +1,10 @@
 
 from Action import Action
-from ChessEnums import Piece
-from ChessEnums import Player
-from ChessEnums import Space
+from ChessEnums import Piece, Player, Space
 from Coord import Coord
 from State import State
-from UtilityFunctions import IsEmpty
-from UtilityFunctions import IsOpponentPiece
-from UtilityFunctions import IsPlayerPiece
+from UtilityFunctions import    ForEachSpaceL, IsEmpty, IsOpponentPiece,\
+                                IsPlayerPiece
 
 
 # Pawns can move in 4 ways:
@@ -61,8 +58,9 @@ def PawnActions(par_state : State, par_space : Space):
     
     for h in range(-1, 2, 2):
         coord_diag = Coord(coord.c + h, coord.r + v)
+        is_diag_valid = coord_diag.isValid()
 
-        if 0 <= coord_diag.c < 8:
+        if is_diag_valid:
             space_diag = coord_diag.toSpace()
             piece_diag = board[space_diag]
             is_opponent_piece_diag = IsOpponentPiece(piece_diag, player)
@@ -105,12 +103,36 @@ def PawnActions(par_state : State, par_space : Space):
     return actions
 
 
-def KnightActions(par_state, par_space):
-    return []
+# Knights move in an "L" pattern. This can be thought of as moving two squares
+# horizontally then one square vertically, or moving one square horizontally
+# then two squares vertically.
+def KnightActions(par_state : State, par_space):
+    actions = []
+    board = par_state.board
+    player = par_state.player
+    
+    def function(par_space_dest):
+        nonlocal actions
+        nonlocal board
+        nonlocal par_space
+        nonlocal player
+        
+        piece_dest = board[par_space_dest]
+        is_player_piece_dest = IsPlayerPiece(piece_dest, player)
+
+        if not is_player_piece_dest:
+            actions.append(Action(par_space, par_space_dest))
+    
+    ForEachSpaceL(function, par_space)
+
+    return actions
+
+
 def BishopActions(par_state, par_space): return []
 def RookActions(par_state, par_space): return []
 def QueenActions(par_state, par_space): return []
 def KingActions(par_state, par_space): return []
+
 
 def Actions(par_state : State):
     actions = []
@@ -127,40 +149,40 @@ def Actions(par_state : State):
         if is_player_piece:
             match piece:
                 case Piece.W_P:
-                    actions.append(PawnActions(par_state, space))
+                    actions.extend(PawnActions(par_state, space))
                     
                 case Piece.B_P:
-                    actions.append(PawnActions(par_state, space))
+                    actions.extend(PawnActions(par_state, space))
                     
                 case Piece.W_N:
-                    actions.append(KnightActions(par_state, space))
+                    actions.extend(KnightActions(par_state, space))
                     
                 case Piece.B_N:
-                    actions.append(KnightActions(par_state, space))
+                    actions.extend(KnightActions(par_state, space))
                     
                 case Piece.W_B:
-                    actions.append(BishopActions(par_state, space))
+                    actions.extend(BishopActions(par_state, space))
                     
                 case Piece.B_B:
-                    actions.append(BishopActions(par_state, space))
+                    actions.extend(BishopActions(par_state, space))
                     
                 case Piece.W_R:
-                    actions.append(RookActions(par_state, space))
+                    actions.extend(RookActions(par_state, space))
                     
                 case Piece.B_R:
-                    actions.append(RookActions(par_state, space))
+                    actions.extend(RookActions(par_state, space))
                     
                 case Piece.W_Q:
-                    actions.append(QueenActions(par_state, space))
+                    actions.extend(QueenActions(par_state, space))
                     
                 case Piece.B_Q:
-                    actions.append(QueenActions(par_state, space))
+                    actions.extend(QueenActions(par_state, space))
                     
                 case Piece.W_K:
-                    actions.append(KingActions(par_state, space))
+                    actions.extend(KingActions(par_state, space))
 
                 case Piece.B_K:
-                    actions.append(KingActions(par_state, space))
+                    actions.extend(KingActions(par_state, space))
 
                 case _:
                     assert(0)

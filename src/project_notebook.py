@@ -15,19 +15,15 @@
 
 from Action import Action
 from Actions import Actions
-from ChessEnums import Player
-from ChessEnums import Piece
-from ChessEnums import Space
+from ChessEnums import Piece, Player, Space
 import ChessEnums
 from Coord import Coord
 from PathCost import PathCost
 from Result import Result
 from State import State
-from UtilityFunctions import IsCheckForPlayer
-from UtilityFunctions import ForEachSpaceHorizontalAndVertical
-from UtilityFunctions import ForEachSpaceDiagonal
-from UtilityFunctions import ForEachSpaceL
-from UtilityFunctions import ToPlayer
+from UtilityFunctions import    ForEachSpaceDiagonal,\
+                                ForEachSpaceHorizontalAndVertical,\
+                                ForEachSpaceL, IsCheckForPlayer, ToPlayer
 
 print("Hello. This will be a great project.")
 

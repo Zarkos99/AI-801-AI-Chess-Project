@@ -105,7 +105,8 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_
                 continue
 
             dest = Coord(int(coord.c + h), int(coord.r + v))
-            while 0 <= dest.c and dest.c < 8 and 0 <= dest.r and dest.r < 8:
+            
+            while  dest.isValid():
                 space = dest.toSpace()
                 par_function(space)
 
@@ -122,7 +123,8 @@ def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space)
     for h in range(-1, 2, 2):
         for v in range(-1, 2, 2):
             dest = Coord(int(coord.c + h), int(coord.r + v))
-            while 0 <= dest.c and dest.c < 8 and 0 <= dest.r and dest.r < 8:
+            
+            while dest.isValid():
                 space = dest.toSpace()
                 par_function(space)
 
@@ -141,12 +143,11 @@ def ForEachSpaceL(par_function, par_space: Space):
             if (abs(c) + abs(r)) != 3:
                 continue
 
-            if (coord.c + c < 0 or coord.c + c >= 8
-                    or coord.r + r < 0 or coord.r + r >= 8):
-                continue
+            dest = Coord(coord.c + c, coord.r + r)
 
-            space = Coord(coord.c + c, coord.r + r).toSpace()
-            par_function(space)
+            if dest.isValid():
+                space = dest.toSpace()
+                par_function(space)
 
 
 def ToPlayer(par_piece: Piece) -> Player:
