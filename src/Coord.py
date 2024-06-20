@@ -1,4 +1,4 @@
-from chess_enums import Space
+from ChessEnums import Space
 
 
 class Coord:
