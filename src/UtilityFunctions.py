@@ -68,6 +68,34 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     return check
 
 
+def IsEmpty(par_piece):
+    is_empty = par_piece == Piece.___
+    
+    return is_empty
+
+
+def IsOpponentPiece(par_piece, par_player):
+    if not IsPiece(par_piece): return False
+
+    is_opponent_piece = ToPlayer(par_piece) != par_player
+    
+    return is_opponent_piece
+
+
+def IsPiece(par_piece):
+    is_piece = not IsEmpty(par_piece)
+    
+    return is_piece
+
+
+def IsPlayerPiece(par_piece, par_player):
+    if not IsPiece(par_piece): return False
+
+    is_player_piece = ToPlayer(par_piece) == par_player
+
+    return is_player_piece
+
+
 def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_space: Space):
     coord = Coord.fromSpace(par_space)
 

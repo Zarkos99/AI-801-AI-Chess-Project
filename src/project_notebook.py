@@ -53,6 +53,6 @@ print(ForEachSpaceHorizontalAndVertical(Func, State().board, Space.A1))
 print(ForEachSpaceDiagonal(Func, State().board, Space.A3))
 print(ForEachSpaceL(Func, Space.A2))
 
-print(Actions(State()))
+print(len(Actions(State())))
 
 # Please add new classes and functions here to be printed

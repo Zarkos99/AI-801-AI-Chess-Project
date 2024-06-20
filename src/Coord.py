@@ -7,8 +7,8 @@ class Coord:
         self.r = r
 
     @classmethod
-    def fromSpace(cls, par_space: Space) -> None:
-        c = par_space / 8
+    def fromSpace(cls, par_space: Space):
+        c = par_space // 8
         r = par_space % 8
         return cls(c, r)
 

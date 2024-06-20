@@ -5,8 +5,6 @@ from ChessEnums import Piece
 
 
 class State:
-    moves: list = []  # of Actions
-
     def __init__(self) -> None:
         self.board = [Piece.___]*len(Space)
         self.board[Space.A2] = self.board[Space.B2] = self.board[Space.C2] = self.board[Space.D2] = self.board[
@@ -25,6 +23,7 @@ class State:
         self.board[Space.D8] = Piece.B_Q
         self.board[Space.E8] = Piece.B_K
 
+        self.moves = []
         self.king_space = [ Space.E1, Space.E8 ]
         self.king_moved = [ False, False ]
         self.rookA_moved = [ False, False ]
