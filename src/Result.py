@@ -1,6 +1,6 @@
-from chess_enums import Piece
-from chess_enums import Player
-from chess_enums import Space
+from ChessEnums import Piece
+from ChessEnums import Player
+from ChessEnums import Space
 import State
 import Action
 import Coord
