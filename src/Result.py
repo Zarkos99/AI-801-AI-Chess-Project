@@ -1,8 +1,8 @@
 from ChessEnums import Piece
 from ChessEnums import Player
 from ChessEnums import Space
-import State
-import Action
+from State import State
+from Action import Action
 import Coord
 import UtilityFunctions
 

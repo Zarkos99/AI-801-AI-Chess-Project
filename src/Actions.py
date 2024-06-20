@@ -2,6 +2,7 @@
 from Action import Action
 from ChessEnums import Piece, Player, Space
 from Coord import Coord
+from Result import Result
 from State import State
 from UtilityFunctions import    ForEachSpaceDiagonal,\
                                 ForEachSpaceHorizontalAndVertical,\
@@ -105,7 +106,14 @@ def PawnActions(par_state : State, par_space : Space):
     return actions
 
 
-# Used for knights, bishops, rooks, and queens who have simple movement rules
+# Used for pieces with simple movement rules
+# 1. Knight: moves in an "L" pattern. This can be thought of as moving two
+#    squares horizontally then one square vertically, or moving one square
+#    horizontally then two squares vertically.
+# 2. Bishop: moves any number of vacant squares diagonally.
+# 3. Rook: moves any number of vacant squares horizontally or vertically.
+# 4. Queen: moves any number of vacant squares horizontally, vertically, or
+#    diagonally.
 def SimpleActions(par_state : State, par_space, par_function):
     actions = []
     board = par_state.board
@@ -128,7 +136,76 @@ def SimpleActions(par_state : State, par_space, par_function):
     return actions
     
 
-def KingActions(par_state, par_space): return []
+# The king moves exactly one square horizontally, vertically, or diagonally.
+# A special move with the king known as castling is allowed only once per
+# player, per game
+def KingActions(par_state : State, par_space):
+    actions = []
+    board = par_state.board
+    coord = Coord.fromSpace(par_space)
+    player = par_state.player
+    
+    # The king moves exactly one square horizontally, vertically, or diagonally
+    for h in range(-1, 2):
+        for v in range(-1, 2):
+            if h == 0 and v == 0:
+                continue
+            
+            coord_dest = Coord(coord.c + h, coord.r + v)
+            is_valid_dest = coord_dest.isValid()
+
+            if is_valid_dest:
+                space_dest = coord_dest.toSpace()
+                piece_dest = board[space_dest]
+                is_player_piece = IsPlayerPiece(piece_dest, player)
+                
+                if not is_player_piece:
+                    actions.append(Action(par_space, space_dest))
+    
+    # A special move with the king known as castling is allowed only once per
+    # player, per game
+    has_king_moved = par_state.king_moved[player]
+    
+    if not has_king_moved:
+        has_A_moved = par_state.rookA_moved[player]
+        has_H_moved = par_state.rookH_moved[player]
+        spaces_between = [[[Space.F1, Space.G1],\
+                           [Space.F8, Space.G8]],\
+                          [[Space.B1, Space.C1, Space.D1],\
+                           [Space.B8, Space.C8, Space.D8]]]
+
+        for is_queenside in range(0, 2):
+            has_rook_moved = has_A_moved if is_queenside else has_H_moved
+            sign = -1 if is_queenside else 1
+            
+            if not has_rook_moved:
+                are_pieces_between = False
+                
+                for space in spaces_between[is_queenside][player]:
+                    is_empty_space = IsEmpty(space)
+                    if not is_empty_space:
+                        are_pieces_between = True
+                        break
+                
+                if not are_pieces_between:
+                    is_any_check = False
+                    
+                    for i in range(0, 3):
+                        coord_i = Coord(coord.c + i * sign, coord.r)
+                        action_i = Action(par_space, coord_i.toSpace())
+                        state_i = Result(par_state, action_i)
+                        is_check_i = state_i.check
+                        
+                        if is_check_i:
+                            is_any_check = True
+                            break
+                    
+                    if not is_any_check:
+                        coord_dest = Coord(coord.c + 2 * sign, coord.r)
+                        space_dest = coord_dest.toSpace()
+                        actions.append(Action(par_space, space_dest))
+                
+    return actions
 
 
 def Actions(par_state : State):
