@@ -1,5 +1,5 @@
-from chess_enums import Space
-from chess_enums import Piece
+from ChessEnums import Space
+from ChessEnums import Piece
 
 
 class Action:
