@@ -1,7 +1,7 @@
-from chess_enums import Player
-from chess_enums import Space
-from chess_enums import Piece
-from chess_enums import W_LAST
+from ChessEnums import Player
+from ChessEnums import Space
+from ChessEnums import Piece
+from ChessEnums import W_LAST
 import Coord
 import numpy
 
