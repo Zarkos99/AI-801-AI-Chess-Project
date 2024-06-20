@@ -1,14 +1,17 @@
 from ChessEnums import Piece
 from ChessEnums import Player
 import State
-
+import numpy as np
 
 class PathCost:
 
     def __init__(self, par_state: State) -> None:
         player = par_state.player
-        w_pieces = 0
-        b_pieces = 0
+        
+        # We intend to divide by 0 sometimes, and we want this to result in 'inf'.
+        # Numpy types allow this, default Python types throw an exception.
+        w_pieces = np.int32(0)
+        b_pieces = np.int32(0)
 
         for piece in par_state.board:
             match piece:
