@@ -26,7 +26,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
                     check = True
                     return
 
-    ForEachSpaceHorizontalAndVertical(h_and_v, par_board, par_king)
+    ForEachSpaceHorizontalAndVertical(h_and_v, par_king, par_board)
 
     if check:
         return check
@@ -50,7 +50,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
                         check = True
                         return
 
-    ForEachSpaceDiagonal(diag, par_board, par_king)
+    ForEachSpaceDiagonal(diag, par_king, par_board)
 
     if check:
         return check
@@ -96,7 +96,7 @@ def IsPlayerPiece(par_piece, par_player):
     return is_player_piece
 
 
-def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_space: Space):
+def ForEachSpaceHorizontalAndVertical(par_function, par_space: Space, par_board: numpy.array):
     coord = Coord.fromSpace(par_space)
 
     for h in range(-1, 2):
@@ -117,7 +117,7 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_board: numpy.array, par_
                 dest.r += v
 
 
-def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space):
+def ForEachSpaceDiagonal(par_function, par_space: Space, par_board: numpy.array):
     coord = Coord.fromSpace(par_space)
 
     for h in range(-1, 2, 2):
@@ -135,7 +135,7 @@ def ForEachSpaceDiagonal(par_function, par_board: numpy.array, par_space: Space)
                 dest.r += v
 
 
-def ForEachSpaceL(par_function, par_space: Space):
+def ForEachSpaceL(par_function, par_space: Space, par_board: numpy.array = []):
     coord = Coord.fromSpace(par_space)
 
     for c in range(-2, 3):

@@ -3,8 +3,10 @@ from Action import Action
 from ChessEnums import Piece, Player, Space
 from Coord import Coord
 from State import State
-from UtilityFunctions import    ForEachSpaceDiagonal, ForEachSpaceL, IsEmpty,\
-                                IsOpponentPiece, IsPlayerPiece
+from UtilityFunctions import    ForEachSpaceDiagonal,\
+                                ForEachSpaceHorizontalAndVertical,\
+                                ForEachSpaceL, IsEmpty, IsOpponentPiece,\
+                                IsPlayerPiece
 
 
 # Pawns can move in 4 ways:
@@ -103,10 +105,8 @@ def PawnActions(par_state : State, par_space : Space):
     return actions
 
 
-# Knights move in an "L" pattern. This can be thought of as moving two squares
-# horizontally then one square vertically, or moving one square horizontally
-# then two squares vertically.
-def KnightActions(par_state : State, par_space):
+# Used for knights, bishops, rooks, and queens who have simple movement rules
+def SimpleActions(par_state : State, par_space, par_function):
     actions = []
     board = par_state.board
     player = par_state.player
@@ -123,36 +123,11 @@ def KnightActions(par_state : State, par_space):
         if not is_player_piece_dest:
             actions.append(Action(par_space, par_space_dest))
     
-    ForEachSpaceL(function, par_space)
+    par_function(function, par_space, board)
 
     return actions
-
-
-# A bishop moves any number of vacant squares diagonally.
-def BishopActions(par_state : State, par_space):
-    actions = []
-    board = par_state.board
-    player = par_state.player
     
-    def function(par_space_dest):
-        nonlocal actions
-        nonlocal board
-        nonlocal par_space
-        nonlocal player
-        
-        piece_dest = board[par_space_dest]
-        is_player_piece_dest = IsPlayerPiece(piece_dest, player)
 
-        if not is_player_piece_dest:
-            actions.append(Action(par_space, par_space_dest))
-    
-    ForEachSpaceDiagonal(function, board, par_space)
-
-    return actions
-
-
-def RookActions(par_state, par_space): return []
-def QueenActions(par_state, par_space): return []
 def KingActions(par_state, par_space): return []
 
 
@@ -177,28 +152,44 @@ def Actions(par_state : State):
                     actions.extend(PawnActions(par_state, space))
                     
                 case Piece.W_N:
-                    actions.extend(KnightActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceL))
                     
                 case Piece.B_N:
-                    actions.extend(KnightActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceL))
                     
                 case Piece.W_B:
-                    actions.extend(BishopActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
                     
                 case Piece.B_B:
-                    actions.extend(BishopActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
                     
                 case Piece.W_R:
-                    actions.extend(RookActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space,
+                                      ForEachSpaceHorizontalAndVertical))
                     
                 case Piece.B_R:
-                    actions.extend(RookActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space,
+                                      ForEachSpaceHorizontalAndVertical))
                     
                 case Piece.W_Q:
-                    actions.extend(QueenActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                    actions.extend(
+                        SimpleActions(par_state, space,
+                                      ForEachSpaceHorizontalAndVertical))
                     
                 case Piece.B_Q:
-                    actions.extend(QueenActions(par_state, space))
+                    actions.extend(
+                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                    actions.extend(
+                        SimpleActions(par_state, space,
+                                      ForEachSpaceHorizontalAndVertical))
                     
                 case Piece.W_K:
                     actions.extend(KingActions(par_state, space))
