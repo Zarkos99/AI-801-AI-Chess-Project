@@ -14,6 +14,7 @@
 # ---
 
 from Action import Action
+from Actions import Actions
 from ChessEnums import Player
 from ChessEnums import Piece
 from ChessEnums import Space
@@ -51,5 +52,7 @@ print(IsCheckForPlayer(State().board, Player.White, Space.E1))
 print(ForEachSpaceHorizontalAndVertical(Func, State().board, Space.A1))
 print(ForEachSpaceDiagonal(Func, State().board, Space.A3))
 print(ForEachSpaceL(Func, Space.A2))
+
+print(Actions(State()))
 
 # Please add new classes and functions here to be printed
