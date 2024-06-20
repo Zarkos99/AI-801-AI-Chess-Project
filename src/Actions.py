@@ -3,8 +3,8 @@ from Action import Action
 from ChessEnums import Piece, Player, Space
 from Coord import Coord
 from State import State
-from UtilityFunctions import    ForEachSpaceL, IsEmpty, IsOpponentPiece,\
-                                IsPlayerPiece
+from UtilityFunctions import    ForEachSpaceDiagonal, ForEachSpaceL, IsEmpty,\
+                                IsOpponentPiece, IsPlayerPiece
 
 
 # Pawns can move in 4 ways:
@@ -128,7 +128,29 @@ def KnightActions(par_state : State, par_space):
     return actions
 
 
-def BishopActions(par_state, par_space): return []
+# A bishop moves any number of vacant squares diagonally.
+def BishopActions(par_state : State, par_space):
+    actions = []
+    board = par_state.board
+    player = par_state.player
+    
+    def function(par_space_dest):
+        nonlocal actions
+        nonlocal board
+        nonlocal par_space
+        nonlocal player
+        
+        piece_dest = board[par_space_dest]
+        is_player_piece_dest = IsPlayerPiece(piece_dest, player)
+
+        if not is_player_piece_dest:
+            actions.append(Action(par_space, par_space_dest))
+    
+    ForEachSpaceDiagonal(function, board, par_space)
+
+    return actions
+
+
 def RookActions(par_state, par_space): return []
 def QueenActions(par_state, par_space): return []
 def KingActions(par_state, par_space): return []
