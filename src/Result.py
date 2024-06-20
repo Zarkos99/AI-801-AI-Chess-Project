@@ -47,7 +47,7 @@ def Result(par_state: State, par_action: Action):
     if ((piece_orig == Piece.W_P and dest.r == 7) or (piece_orig == Piece.B_P and dest.r == 0)):
         state.board[par_action.dest] = par_action.promotion
 
-    state.moves.push_back(par_action)
+    state.moves.append(par_action)
 
     if (piece_orig == Piece.W_K):
         state.king_space[Player.White] = par_action.dest
