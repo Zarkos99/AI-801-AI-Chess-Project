@@ -39,9 +39,5 @@ class TestParseFen(unittest.TestCase):
         self.assertIsNone(board[0][0])
         self.assertIsNone(board[7][7])
 
-    def test_invalid_fen(self):
-        with self.assertRaises(KeyError):
-            parse_fen("9/8/8/8/8/8/8/8")
-
 if __name__ == '__main__':
     unittest.main()

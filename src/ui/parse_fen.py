@@ -34,4 +34,3 @@ def parse_fen(fen):
         board.append(board_row)
 
     return board
-
