@@ -1,6 +1,6 @@
 """Tests for parsefen"""
 import unittest
-from src.ui.parse_fen import parse_fen
+from ui.parse_fen import parse_fen
 
 class TestParseFen(unittest.TestCase):
     """Simple unit test for parse_fen"""
