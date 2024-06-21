@@ -38,8 +38,6 @@ def parse_fen(fen):
 
     return board
 
-class TestParseFen(unittest.TestCase):
-    """Simple unit test for parse_fen"""
 
     def test_initial_position(self):
         """Tests default board state"""
@@ -79,5 +77,3 @@ class TestParseFen(unittest.TestCase):
         with self.assertRaises(KeyError):
             parse_fen("9/8/8/8/8/8/8/8")
 
-if __name__ == '__main__':
-    unittest.main()
