@@ -7,7 +7,7 @@ class PathCost:
 
     def __init__(self, par_state: State) -> None:
         player = par_state.player
-        
+
         # We intend to divide by 0 sometimes, and we want this to result in 'inf'.
         # Numpy types allow this, default Python types throw an exception.
         w_pieces = np.int32(0)

@@ -49,21 +49,21 @@ def Result(par_state: State, par_action: Action):
 
     state.moves.append(par_action)
 
-    if (piece_orig == Piece.W_K):
+    if piece_orig == Piece.W_K:
         state.king_space[Player.White] = par_action.dest
         state.king_moved[Player.White] = True
 
-    if (piece_orig == Piece.B_K):
+    if piece_orig == Piece.B_K:
         state.king_space[Player.Black] = par_action.dest
         state.king_moved[Player.Black] = True
 
-    if (par_action.orig == Space.A1):
+    if par_action.orig == Space.A1:
         state.rookA_moved[Player.White] = True
-    if (par_action.orig == Space.A8):
+    if par_action.orig == Space.A8:
         state.rookA_moved[Player.Black] = True
-    if (par_action.orig == Space.H1):
+    if par_action.orig == Space.H1:
         state.rookH_moved[Player.White] = True
-    if (par_action.orig == Space.H8):
+    if par_action.orig == Space.H8:
         state.rookH_moved[Player.Black] = True
 
     # Check

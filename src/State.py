@@ -30,4 +30,3 @@ class State:
         self.rookH_moved = [ False, False ]
         self.player = Player(len(self.moves) % 2)
         self.check = False
-        
