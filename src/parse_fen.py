@@ -1,4 +1,4 @@
-"""Aa helper"""
+"""A UI FEN helper"""
 class ChessPiece:
     """Defines a UI Chess Piece"""
     def __init__(self, piece_type, color):
@@ -14,10 +14,6 @@ def parse_fen(fen):
         'p': 'pawn', 'r': 'rook', 'n': 'knight', 'b': 'bishop', 'q': 'queen', 'k': 'king',
         'P': 'pawn', 'R': 'rook', 'N': 'knight', 'B': 'bishop', 'Q': 'queen', 'K': 'king'
     }
-    color_mapping = {
-        'p': 'black', 'r': 'black', 'n': 'black', 'b': 'black', 'q': 'black', 'k': 'black',
-        'P': 'white', 'R': 'white', 'N': 'white', 'B': 'white', 'Q': 'white', 'K': 'white'
-    }
 
     rows = fen.split(' ')[0].split('/')
     board = []
@@ -29,7 +25,7 @@ def parse_fen(fen):
                 board_row.extend([None] * int(char))
             else:
                 piece_type = piece_mapping[char]
-                color = color_mapping[char]
+                color = 'white' if char.isupper() else 'black'
                 board_row.append(ChessPiece(piece_type, color))
         board.append(board_row)
 
