@@ -1,13 +1,14 @@
-from ChessEnums import Piece
-from ChessEnums import Player
-from ChessEnums import Space
-from State import State
-from Action import Action
-import Coord
-import UtilityFunctions
+"""computes a change on the state"""
+from chess_enums import Piece
+from chess_enums import Player
+from chess_enums import Space
+from state import State
+from action import Action
+from coord import Coord
+import utility_functions
 
-
-def Result(par_state: State, par_action: Action):
+def result(par_state: State, par_action: Action):
+    """gets a new state from the result of an action"""
     state = par_state
     orig = par_action.orig
     dest = par_action.dest
@@ -19,7 +20,8 @@ def Result(par_state: State, par_action: Action):
     state.board[par_action.orig] = Piece.___
 
     # En Pessant
-    if ((piece_orig == Piece.W_P or piece_orig == Piece.B_P) and piece_dest == Piece.___ and orig.c != dest.c):
+    if ((piece_orig == Piece.W_P or piece_orig == Piece.B_P)
+         and piece_dest == Piece.___ and orig.c != dest.c):
         space_captured_pawn = Coord(
             dest.c, dest.r - 1 if player == Player.White else dest.r + 1)
 
@@ -49,26 +51,26 @@ def Result(par_state: State, par_action: Action):
 
     state.moves.append(par_action)
 
-    if (piece_orig == Piece.W_K):
+    if piece_orig == Piece.W_K:
         state.king_space[Player.White] = par_action.dest
         state.king_moved[Player.White] = True
 
-    if (piece_orig == Piece.B_K):
+    if piece_orig == Piece.B_K:
         state.king_space[Player.Black] = par_action.dest
         state.king_moved[Player.Black] = True
 
-    if (par_action.orig == Space.A1):
+    if par_action.orig == Space.A1:
         state.rookA_moved[Player.White] = True
-    if (par_action.orig == Space.A8):
+    if par_action.orig == Space.A8:
         state.rookA_moved[Player.Black] = True
-    if (par_action.orig == Space.H1):
+    if par_action.orig == Space.H1:
         state.rookH_moved[Player.White] = True
-    if (par_action.orig == Space.H8):
+    if par_action.orig == Space.H8:
         state.rookH_moved[Player.Black] = True
 
     # Check
     king_space = state.king_space[player]
-    state.check = UtilityFunctions.IsCheckForPlayer(
+    state.check = utility_functions.is_check_for_player(
         state.board, player, king_space)
 
     return state

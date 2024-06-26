@@ -1,4 +1,4 @@
-"""Chill docstring"""
+"""notebook checkpoint""" # [invalid-name]
 # ---
 # jupyter:
 #   jupytext:
