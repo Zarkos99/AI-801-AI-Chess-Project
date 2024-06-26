@@ -61,16 +61,16 @@ game_piece_asset_map = {
 def draw_board():
     """Draws the 8 x 8 Chess board"""
     fill_primary_color = True
-    for r in range(8):
-        for c in range(8):
+    for row in range(8):
+        for col in range(8):
             fill_color = 'white' if fill_primary_color else 'dark grey'
             pygame.draw.rect(
                 screen,
                 fill_color,
-                [c * TILE_WIDTH, r * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT]
+                [col * TILE_WIDTH, row * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT]
             )
             fill_primary_color = not fill_primary_color
-            if c == 7: # end of the row start offset again
+            if col == 7: # end of the row start offset again
                 fill_primary_color = not fill_primary_color
 
 # draw pieces onto board

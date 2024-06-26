@@ -18,12 +18,10 @@ from actions import all_actions
 from chess_enums import Piece, Player, Space
 # import chess_enums
 from coord import Coord
-from PathCost import PathCost
+from path_cost import PathCost
 from result import Result
 from state import State
-from UtilityFunctions import    ForEachSpaceDiagonal,\
-                                ForEachSpaceHorizontalAndVertical,\
-                                ForEachSpaceL, IsCheckForPlayer, ToPlayer
+import utility_functions
 
 print("Hello. This will be a great project.")
 
@@ -44,10 +42,11 @@ print(Result(State(), Action()))
 print(State())
 
 def func(par_space): pass
-print(IsCheckForPlayer(State().board, Player.White, Space.E1))
-print(ForEachSpaceHorizontalAndVertical(func, Space.A1, State().board))
-print(ForEachSpaceDiagonal(func, Space.A3, State().board))
-print(ForEachSpaceL(func, Space.A2))
+"""test"""
+print(utility_functions.is_check_for_player(State().board, Player.White, Space.E1))
+print(utility_functions.for_each_space_horizontal_and_vertical(func, Space.A1, State().board))
+print(utility_functions.for_each_space_diagonal(func, Space.A3, State().board))
+print(utility_functions.for_each_space_l(func, Space.A2))
 
 print(len(all_actions(State())))
 

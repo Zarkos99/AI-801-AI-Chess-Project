@@ -5,7 +5,7 @@ from chess_enums import Space
 from state import State
 from action import Action
 from coord import Coord
-import UtilityFunctions
+import utility_functions
 
 def result(par_state: State, par_action: Action):
     """gets a new state from the result of an action"""
@@ -70,7 +70,7 @@ def result(par_state: State, par_action: Action):
 
     # Check
     king_space = state.king_space[player]
-    state.check = UtilityFunctions.IsCheckForPlayer(
+    state.check = utility_functions.is_check_for_player(
         state.board, player, king_space)
 
     return state

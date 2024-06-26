@@ -17,11 +17,11 @@ def is_check_for_player(par_board: numpy.array, par_player: Player, par_king: Sp
         nonlocal check
         piece = par_board[par_space]
         if (piece != Piece.___ and to_player(piece) != par_player):
-            if piece == Piece.W_R or piece == Piece.B_R or piece == Piece.W_Q or piece == Piece.B_Q:
+            if piece in { Piece.W_R, Piece.B_R, Piece.W_Q, Piece.B_Q } :
                 check = True
                 return
 
-            if (piece == Piece.W_K or piece == Piece.B_K):
+            if (piece in { Piece.W_K, Piece.B_K }):
                 coord_king = Coord(par_space, 0) # REVISIT - todo uppercase causes lint
                 if abs(coord.c - coord_king.c) + abs(coord.r - coord_king.r) == 1:
                     check = True
@@ -37,16 +37,16 @@ def is_check_for_player(par_board: numpy.array, par_player: Player, par_king: Sp
         nonlocal check
         piece = par_board[par_space]
         if (piece != Piece.___ and to_player(piece) != par_player):
-            if piece == Piece.W_B or piece == Piece.B_B or piece == Piece.W_Q or piece == Piece.B_Q:
+            if piece in (Piece.W_B, Piece.B_B, Piece.W_Q, Piece.B_Q):
                 check = True
                 return
 
             coord_piece = Coord(par_space, 0) # REVISIT
             if abs(coord.c - coord_piece.c) + abs(coord.r - coord_piece.r) == 2:
-                if (piece == Piece.W_K or piece == Piece.B_K):
+                if piece in (Piece.W_K, Piece.B_K):
                     check = True
                     return
-                if (piece == Piece.W_P or piece == Piece.B_P):
+                if piece in (Piece.W_P, Piece.B_P):
                     if ((par_player == Player.White and (coord_piece.r == coord.r + 1))
                         or (par_player == Player.Black and (coord_piece.r == coord.r - 1))):
                         check = True
@@ -62,7 +62,7 @@ def is_check_for_player(par_board: numpy.array, par_player: Player, par_king: Sp
         nonlocal check
         piece = par_board[par_space]
         if (piece != Piece.___ and to_player(piece) != par_player):
-            if (piece == Piece.W_N or piece == Piece.B_N):
+            if piece in (Piece.W_N, Piece.B_N):
                 check = True
                 return
 
@@ -104,12 +104,12 @@ def for_each_space_horizontal_and_vertical(par_function, par_space: Space, par_b
     """Check spaces horizonally and vertially aka rooks"""
     coord = Coord.from_space(par_space)
 
-    for h in range(-1, 2):
-        for v in range(-1, 2):
-            if abs(h) + abs(v) != 1:
+    for horizonal in range(-1, 2):
+        for vertical in range(-1, 2):
+            if abs(horizonal) + abs(vertical) != 1:
                 continue
 
-            dest = Coord(int(coord.c + h), int(coord.r + v))
+            dest = Coord(int(coord.c + horizonal), int(coord.r + vertical))
 
             while  dest.is_valid():
                 space = dest.to_space()
@@ -118,17 +118,17 @@ def for_each_space_horizontal_and_vertical(par_function, par_space: Space, par_b
                 if par_board[space] != Piece.___:
                     break
 
-                dest.c += h
-                dest.r += v
+                dest.c += horizonal
+                dest.r += vertical
 
 
 def for_each_space_diagonal(par_function, par_space: Space, par_board: numpy.array):
     """check diagonal spaces"""
     coord = Coord.from_space(par_space)
 
-    for h in range(-1, 2, 2):
-        for v in range(-1, 2, 2):
-            dest = Coord(int(coord.c + h), int(coord.r + v))
+    for horizonal in range(-1, 2, 2):
+        for vertical in range(-1, 2, 2):
+            dest = Coord(int(coord.c + horizonal), int(coord.r + vertical))
 
             while dest.is_valid():
                 space = dest.to_space()
@@ -137,20 +137,20 @@ def for_each_space_diagonal(par_function, par_space: Space, par_board: numpy.arr
                 if par_board[space] != Piece.___:
                     break
 
-                dest.c += h
-                dest.r += v
+                dest.c += horizonal
+                dest.r += vertical
 
 
 def for_each_space_l(par_function, par_space: Space):
     """for each space"""
     coord = Coord.from_space(par_space)
 
-    for c in range(-2, 3):
-        for r in range(-2, 3):
-            if (abs(c) + abs(r)) != 3:
+    for col in range(-2, 3):
+        for row in range(-2, 3):
+            if (abs(col) + abs(row)) != 3:
                 continue
 
-            dest = Coord(coord.c + c, coord.r + r)
+            dest = Coord(coord.c + col, coord.r + row)
 
             if dest.is_valid():
                 space = dest.to_space()

@@ -1,6 +1,5 @@
 """action_module"""
-from chess_enums import Space
-from chess_enums import Piece
+from chess_enums import Space, Piece
 
 class Action:
     """an action that can be take"""
