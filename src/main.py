@@ -1,3 +1,4 @@
+"""main loop for rendering the agents progress"""
 import pygame
 from parse_fen import parse_fen
 

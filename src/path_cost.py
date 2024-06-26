@@ -1,10 +1,11 @@
-from ChessEnums import Piece
-from ChessEnums import Player
-import State
+"""module for calculating path cost"""
 import numpy as np
+from chess_enums import Piece
+from chess_enums import Player
+from state import State
 
 class PathCost:
-
+    """helps calculate the 'cost' of a path"""
     def __init__(self, par_state: State) -> None:
         player = par_state.player
 

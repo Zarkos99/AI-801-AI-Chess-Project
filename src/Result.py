@@ -1,13 +1,14 @@
-from ChessEnums import Piece
-from ChessEnums import Player
-from ChessEnums import Space
-from State import State
-from Action import Action
-import Coord
+"""computes a change on the state"""
+from chess_enums import Piece
+from chess_enums import Player
+from chess_enums import Space
+from state import State
+from action import Action
+from coord import Coord
 import UtilityFunctions
 
-
-def Result(par_state: State, par_action: Action):
+def result(par_state: State, par_action: Action):
+    """gets a new state from the result of an action"""
     state = par_state
     orig = par_action.orig
     dest = par_action.dest
@@ -19,7 +20,8 @@ def Result(par_state: State, par_action: Action):
     state.board[par_action.orig] = Piece.___
 
     # En Pessant
-    if ((piece_orig == Piece.W_P or piece_orig == Piece.B_P) and piece_dest == Piece.___ and orig.c != dest.c):
+    if ((piece_orig == Piece.W_P or piece_orig == Piece.B_P)
+         and piece_dest == Piece.___ and orig.c != dest.c):
         space_captured_pawn = Coord(
             dest.c, dest.r - 1 if player == Player.White else dest.r + 1)
 

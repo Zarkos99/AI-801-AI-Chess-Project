@@ -1,9 +1,9 @@
-
-from Action import Action
-from ChessEnums import Piece, Player, Space
-from Coord import Coord
-from Result import Result
-from State import State
+"""Actions module"""
+from action import Action
+from chess_enums import Piece, Player, Space
+from coord import Coord
+from result import Result
+from state import State
 from UtilityFunctions import    ForEachSpaceDiagonal,\
                                 ForEachSpaceHorizontalAndVertical,\
                                 ForEachSpaceL, IsEmpty, IsOpponentPiece,\
@@ -17,11 +17,12 @@ from UtilityFunctions import    ForEachSpaceDiagonal,\
 # 4. En Pessant (if opponent's last move was pawn moving two spaces and ending
 #    horizontally adjacent to this pawn)
 # Note: If any move results in pawn at end of board, this is promotion
-def PawnActions(par_state : State, par_space : Space):
+def pawn_actions(par_state : State, par_space : Space):
+    """actions for pawns"""
     actions = []
     are_moves = len(par_state.moves) > 0
     board = par_state.board
-    coord = Coord.fromSpace(par_space)
+    coord = Coord.from_space(par_space)
     player = par_state.player
     is_white = player == Player.White
     promotion_start = Piece.W_N if is_white else Piece.B_N
@@ -33,7 +34,7 @@ def PawnActions(par_state : State, par_space : Space):
     coord_forward_1 = Coord(coord.c, coord.r + v)
     is_first_move = coord.r == r_first
     is_r_en_pessant = coord.r == r_en_pessant
-    space_forward_1 = coord_forward_1.toSpace()
+    space_forward_1 = coord_forward_1.to_space()
     is_forward_1_end = coord_forward_1.r == r_last
     piece_forward_1 = board[space_forward_1]
     is_forward_1_empty = IsEmpty(piece_forward_1)
@@ -51,7 +52,7 @@ def PawnActions(par_state : State, par_space : Space):
             actions.append(action)
 
         coord_forward_2 = Coord(coord.c, coord.r + 2*v)
-        space_forward_2 = coord_forward_2.toSpace()
+        space_forward_2 = coord_forward_2.to_space()
         piece_forward_2 = board[space_forward_2]
         is_forward_2_empty = IsEmpty(piece_forward_2)
 
@@ -61,10 +62,10 @@ def PawnActions(par_state : State, par_space : Space):
 
     for h in range(-1, 2, 2):
         coord_diag = Coord(coord.c + h, coord.r + v)
-        is_diag_valid = coord_diag.isValid()
+        is_diag_valid = coord_diag.is_valid()
 
         if is_diag_valid:
-            space_diag = coord_diag.toSpace()
+            space_diag = coord_diag.to_space()
             piece_diag = board[space_diag]
             is_opponent_piece_diag = IsOpponentPiece(piece_diag, player)
 
@@ -84,7 +85,7 @@ def PawnActions(par_state : State, par_space : Space):
             #    and ending horizontally adjacent to this pawn)
             if is_r_en_pessant:
                 coord_side = Coord(coord.c + h, coord.r)
-                space_side = coord_side.toSpace()
+                space_side = coord_side.to_space()
                 piece_side = board[space_side]
                 is_pawn_side = piece_side == Piece.W_P\
                             or piece_side == Piece.B_P
@@ -93,8 +94,8 @@ def PawnActions(par_state : State, par_space : Space):
 
                 if is_opponent_pawn_side and are_moves:
                     last_move = par_state.moves[-1]
-                    coord_last_move_orig = Coord.fromSpace(last_move.orig)
-                    coord_last_move_dest = Coord.fromSpace(last_move.dest)
+                    coord_last_move_orig = Coord.from_space(last_move.orig)
+                    coord_last_move_dest = Coord.from_space(last_move.dest)
                     is_last_move_pawn_side = last_move.dest == space_side
                     space_distance = abs(coord_last_move_orig.r\
                                        - coord_last_move_dest.r)
@@ -105,16 +106,14 @@ def PawnActions(par_state : State, par_space : Space):
 
     return actions
 
-
-# Used for pieces with simple movement rules
-# 1. Knight: moves in an "L" pattern. This can be thought of as moving two
-#    squares horizontally then one square vertically, or moving one square
-#    horizontally then two squares vertically.
-# 2. Bishop: moves any number of vacant squares diagonally.
-# 3. Rook: moves any number of vacant squares horizontally or vertically.
-# 4. Queen: moves any number of vacant squares horizontally, vertically, or
-#    diagonally.
-def SimpleActions(par_state : State, par_space, par_function):
+def simple_actions(par_state : State, par_space, par_function):
+    """Used for pieces with simple movement rules
+        1. Knight: moves in an "L" pattern. This can be thought of as moving two
+        squares horizontally then one square vertically, or moving one square
+        horizontally then two squares vertically.
+        2. Bishop: moves any number of vacant squares diagonally.
+        3. Rook: moves any number of vacant squares horizontally or vertically.
+        4. Queen: moves any number of vacant squares horizontally, vertically, or diagonally."""
     actions = []
     board = par_state.board
     player = par_state.player
@@ -135,14 +134,13 @@ def SimpleActions(par_state : State, par_space, par_function):
 
     return actions
 
-
-# The king moves exactly one square horizontally, vertically, or diagonally.
-# A special move with the king known as castling is allowed only once per
-# player, per game
-def KingActions(par_state : State, par_space):
+def king_actions(par_state : State, par_space):
+    """ The king moves exactly one square horizontally, vertically, or diagonally.
+        A special move with the king known as castling is allowed only once per
+        player, per game"""
     actions = []
     board = par_state.board
-    coord = Coord.fromSpace(par_space)
+    coord = Coord.from_space(par_space)
     player = par_state.player
 
     # The king moves exactly one square horizontally, vertically, or diagonally
@@ -152,10 +150,10 @@ def KingActions(par_state : State, par_space):
                 continue
 
             coord_dest = Coord(coord.c + h, coord.r + v)
-            is_valid_dest = coord_dest.isValid()
+            is_valid_dest = coord_dest.is_valid()
 
             if is_valid_dest:
-                space_dest = coord_dest.toSpace()
+                space_dest = coord_dest.to_space()
                 piece_dest = board[space_dest]
                 is_player_piece = IsPlayerPiece(piece_dest, player)
 
@@ -167,15 +165,15 @@ def KingActions(par_state : State, par_space):
     has_king_moved = par_state.king_moved[player]
 
     if not has_king_moved:
-        has_A_moved = par_state.rookA_moved[player]
-        has_H_moved = par_state.rookH_moved[player]
+        has_a_moved = par_state.rookA_moved[player]
+        has_h_moved = par_state.rookH_moved[player]
         spaces_between = [[[Space.F1, Space.G1],\
                            [Space.F8, Space.G8]],\
                           [[Space.B1, Space.C1, Space.D1],\
                            [Space.B8, Space.C8, Space.D8]]]
 
         for is_queenside in range(0, 2):
-            has_rook_moved = has_A_moved if is_queenside else has_H_moved
+            has_rook_moved = has_a_moved if is_queenside else has_h_moved
             sign = -1 if is_queenside else 1
 
             if not has_rook_moved:
@@ -192,7 +190,7 @@ def KingActions(par_state : State, par_space):
 
                     for i in range(0, 3):
                         coord_i = Coord(coord.c + i * sign, coord.r)
-                        action_i = Action(par_space, coord_i.toSpace())
+                        action_i = Action(par_space, coord_i.to_space())
                         state_i = Result(par_state, action_i)
                         is_check_i = state_i.check
 
@@ -202,13 +200,14 @@ def KingActions(par_state : State, par_space):
 
                     if not is_any_check:
                         coord_dest = Coord(coord.c + 2 * sign, coord.r)
-                        space_dest = coord_dest.toSpace()
+                        space_dest = coord_dest.to_space()
                         actions.append(Action(par_space, space_dest))
 
     return actions
 
 
-def Actions(par_state : State):
+def all_actions(par_state : State):
+    """all actions for a board state"""
     actions = []
     board = par_state.board
     player = par_state.player
@@ -223,56 +222,56 @@ def Actions(par_state : State):
         if is_player_piece:
             match piece:
                 case Piece.W_P:
-                    actions.extend(PawnActions(par_state, space))
+                    actions.extend(pawn_actions(par_state, space))
 
                 case Piece.B_P:
-                    actions.extend(PawnActions(par_state, space))
+                    actions.extend(pawn_actions(par_state, space))
 
                 case Piece.W_N:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceL))
+                        simple_actions(par_state, space, ForEachSpaceL))
 
                 case Piece.B_N:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceL))
+                        simple_actions(par_state, space, ForEachSpaceL))
 
                 case Piece.W_B:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                        simple_actions(par_state, space, ForEachSpaceDiagonal))
 
                 case Piece.B_B:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                        simple_actions(par_state, space, ForEachSpaceDiagonal))
 
                 case Piece.W_R:
                     actions.extend(
-                        SimpleActions(par_state, space,
+                        simple_actions(par_state, space,
                                       ForEachSpaceHorizontalAndVertical))
 
                 case Piece.B_R:
                     actions.extend(
-                        SimpleActions(par_state, space,
+                        simple_actions(par_state, space,
                                       ForEachSpaceHorizontalAndVertical))
 
                 case Piece.W_Q:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                        simple_actions(par_state, space, ForEachSpaceDiagonal))
                     actions.extend(
-                        SimpleActions(par_state, space,
+                        simple_actions(par_state, space,
                                       ForEachSpaceHorizontalAndVertical))
 
                 case Piece.B_Q:
                     actions.extend(
-                        SimpleActions(par_state, space, ForEachSpaceDiagonal))
+                        simple_actions(par_state, space, ForEachSpaceDiagonal))
                     actions.extend(
-                        SimpleActions(par_state, space,
+                        simple_actions(par_state, space,
                                       ForEachSpaceHorizontalAndVertical))
 
                 case Piece.W_K:
-                    actions.extend(KingActions(par_state, space))
+                    actions.extend(king_actions(par_state, space))
 
                 case Piece.B_K:
-                    actions.extend(KingActions(par_state, space))
+                    actions.extend(king_actions(par_state, space))
 
                 case _:
                     assert 0
