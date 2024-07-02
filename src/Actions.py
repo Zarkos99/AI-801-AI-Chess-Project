@@ -7,7 +7,7 @@ from State import State
 from ChessPiece import ChessPiece
 from UtilityFunctions import ForEachSpaceDiagonal, \
     ForEachSpaceHorizontalAndVertical, \
-    ForEachSpaceL, IsEmpty
+    ForEachSpaceL, IsEmpty, IsPlayerPiece, IsOpponentPiece
 
 
 # Pawns can move in 4 ways:

@@ -72,8 +72,8 @@ def IsEmpty(par_piece):
     return is_empty
 
 
-def IsOpponentPiece_Type(par_piece, par_player):
-    if not IsPiece_Type(par_piece):
+def IsOpponentPiece(par_piece, par_player):
+    if not IsPiece(par_piece):
         return False
 
     is_opponent_piece = ToPlayer(par_piece) != par_player
@@ -81,14 +81,14 @@ def IsOpponentPiece_Type(par_piece, par_player):
     return is_opponent_piece
 
 
-def IsPiece_Type(par_piece):
+def IsPiece(par_piece):
     is_piece = not IsEmpty(par_piece)
 
     return is_piece
 
 
-def IsPlayerPiece_Type(par_piece, par_player):
-    if not IsPiece_Type(par_piece):
+def IsPlayerPiece(par_piece, par_player):
+    if not IsPiece(par_piece):
         return False
 
     is_player_piece = ToPlayer(par_piece) == par_player
