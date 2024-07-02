@@ -13,4 +13,6 @@ class ChessPiece:
         return f"{self.color}{self.piece_type}"
 
     def __eq__(self, par_rhs) -> bool:
+        if not isinstance(par_rhs, ChessPiece):
+            return False
         return self.piece_type == par_rhs.piece_type and self.color == par_rhs.color
