@@ -1,6 +1,5 @@
-from ChessEnums import Piece
-from ChessEnums import Player
-from ChessEnums import Space
+from ChessPiece import ChessPiece
+from ChessEnums import Piece_Type, Player, Space
 from State import State
 from Action import Action
 from Coord import Coord
@@ -16,44 +15,44 @@ def Result(par_state: State, par_action: Action):
     player = par_state.player
 
     state.board[par_action.dest] = state.board[par_action.orig]
-    state.board[par_action.orig] = Piece.___
+    state.board[par_action.orig] = ChessPiece()
 
     # En Pessant
-    if ((piece_orig == Piece.W_P or piece_orig == Piece.B_P) and piece_dest == Piece.___ and orig.c != dest.c):
+    if ((piece_orig == Piece_Type.PAWN) and piece_dest == Piece_Type.___ and orig.c != dest.c):
         space_captured_pawn = Coord(
             dest.c, dest.r - 1 if player == Player.White else dest.r + 1)
 
         assert state.board[space_captured_pawn] == (
-            Piece.B_P if player == Player.White else Piece.W_P)
-        state.board[space_captured_pawn] = Piece.___
+            Piece_Type.PAWN if player == Player.White else Piece_Type.PAWN)
+        state.board[space_captured_pawn] = Piece_Type.___
 
     # Castle
-    if ((piece_orig == Piece.W_K or piece_orig == Piece.B_K) and abs(orig.c - dest.c) == 2):
+    if ((piece_orig == Piece_Type.KING) and abs(orig.c - dest.c) == 2):
         match par_action.dest:
             case Space.C1:
-                state.board[Space.A1] = Piece.___
-                state.board[Space.D1] = Piece.W_R
+                state.board[Space.A1] = Piece_Type.___
+                state.board[Space.D1] = Piece_Type.ROOK
             case Space.G1:
-                state.board[Space.H1] = Piece.___
-                state.board[Space.F1] = Piece.W_R
+                state.board[Space.H1] = Piece_Type.___
+                state.board[Space.F1] = Piece_Type.ROOK
             case Space.C8:
-                state.board[Space.A8] = Piece.___
-                state.board[Space.D8] = Piece.B_R
+                state.board[Space.A8] = Piece_Type.___
+                state.board[Space.D8] = Piece_Type.ROOK
             case Space.G8:
-                state.board[Space.H8] = Piece.___
-                state.board[Space.F8] = Piece.B_R
+                state.board[Space.H8] = Piece_Type.___
+                state.board[Space.F8] = Piece_Type.ROOK
 
     # Promotion
-    if ((piece_orig == Piece.W_P and dest.r == 7) or (piece_orig == Piece.B_P and dest.r == 0)):
+    if ((piece_orig == Piece_Type.PAWN and dest.r == 7) or (piece_orig == Piece_Type.PAWN and dest.r == 0)):
         state.board[par_action.dest] = par_action.promotion
 
     state.moves.append(par_action)
 
-    if (piece_orig == Piece.W_K):
+    if (piece_orig == Piece_Type.KING):
         state.king_space[Player.White] = par_action.dest
         state.king_moved[Player.White] = True
 
-    if (piece_orig == Piece.B_K):
+    if (piece_orig == Piece_Type.KING):
         state.king_space[Player.Black] = par_action.dest
         state.king_moved[Player.Black] = True
 

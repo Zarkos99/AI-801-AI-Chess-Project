@@ -1,4 +1,5 @@
 import pygame
+import ChessPuzzleData
 from parse_fen import parse_fen
 
 pygame.init()
@@ -11,9 +12,9 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('AI801 Chess UI')
 font = pygame.font.Font('freesansbold.ttf', 20)
 timer = pygame.time.Clock()
-FPS = 1 #cap really low for now
+FPS = 1  # cap really low for now
 
-FEN_SAMPLE ="r1b2rk1/1p3pp1/p1nR3p/4n2q/1PB1NQ1B/8/6PP/5RK1 w - - 0 1"
+FEN_SAMPLE = "r1b2rk1/1p3pp1/p1nR3p/4n2q/1PB1NQ1B/8/6PP/5RK1 w - - 0 1"
 
 # load in game piece images (queen, king, rook, bishop, knight, pawn) x 2
 black_queen = pygame.image.load('assets/images/black queen.png')
@@ -57,6 +58,8 @@ game_piece_asset_map = {
 }
 
 # draw main game board
+
+
 def draw_board():
     """Draws the 8 x 8 Chess board"""
     fill_primary_color = True
@@ -69,10 +72,12 @@ def draw_board():
                 [c * TILE_WIDTH, r * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT]
             )
             fill_primary_color = not fill_primary_color
-            if c == 7: # end of the row start offset again
+            if c == 7:  # end of the row start offset again
                 fill_primary_color = not fill_primary_color
 
 # draw pieces onto board
+
+
 def draw_pieces(fen_state: str):
     """Draws fen state pieces to the board"""
     board_items = parse_fen(fen_state)
@@ -81,18 +86,29 @@ def draw_pieces(fen_state: str):
             board_item = board_items[row][col]
             if board_item is not None:
                 asset_name = board_item.color + "_" + board_item.piece_type
-                screen.blit(game_piece_asset_map[asset_name], (row * TILE_WIDTH, col * TILE_HEIGHT))
+                screen.blit(
+                    game_piece_asset_map[asset_name], (row * TILE_WIDTH, col * TILE_HEIGHT))
+
 
 RUN = True
+daily_puzzle_info = ChessPuzzleData.obtain_latest_daily_puzzle()
+board_start_state = daily_puzzle_info.fen_board_start
+
 while RUN:
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             RUN = False
 
-    timer.tick(FPS) # limits FPS
+    timer.tick(FPS)  # limits FPS
     screen.fill('dark blue')
     draw_board()
-    draw_pieces(FEN_SAMPLE)
+    draw_pieces(board_start_state)
+
+    # TODO: Calculate Algorithm's next action
+    # TODO: Check Algorithm's action against solution
+    # TODO: If correct, update board state with algorithm's move and solution's next move
+    # TODO: If incorrect, reattempt algorithm?
+
     pygame.display.flip()
 pygame.quit()

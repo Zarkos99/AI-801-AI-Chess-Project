@@ -1,17 +1,20 @@
 from enum import IntEnum
+from enum import StrEnum
 
-Player = IntEnum('Player', ['White', 'Black'], start=0)
+Player = StrEnum('Player', ['___', 'WHITE', 'BLACK'])
 
-Piece = IntEnum('Piece', [
-    '___',
-    'W_P', 'W_N', 'W_B', 'W_R', 'W_Q', 'W_K',
-    'B_P', 'B_N', 'B_B', 'B_R', 'B_Q', 'B_K',
-], start=0)
+Piece_Type = StrEnum('Piece_Type', [
+    "___",
+    "PAWN",
+    "ROOK",
+    "KNIGHT",
+    "BISHOP",
+    "QUEEN",
+    "KING",
+])
 
-W_FIRST = Piece.W_P
-W_LAST = Piece.W_K
-B_FIRST = Piece.B_P
-B_LAST = Piece.B_K
+Piece_Type_FIRST = Piece_Type.___
+Piece_Type_LAST = Piece_Type.KING
 
 Space = IntEnum('Space', [
     'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8',

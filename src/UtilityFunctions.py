@@ -1,7 +1,5 @@
-from ChessEnums import Player
-from ChessEnums import Space
-from ChessEnums import Piece
-from ChessEnums import W_LAST
+from ChessEnums import Player, Space, Piece_Type, Piece_Type_LAST
+from ChessPiece import ChessPiece
 from Coord import Coord
 import numpy
 
@@ -14,13 +12,13 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def h_and_v(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == Piece.W_R or piece == Piece.B_R or piece == Piece.W_Q or piece == Piece.B_Q):
+        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece_Type.ROOK or piece == Piece_Type.QUEEN):
                 check = True
                 return
 
-            if (piece == Piece.W_K or piece == Piece.B_K):
-                coord_king = Coord(par_space)
+            if (piece == Piece_Type.KING):
+                coord_king = Coord.fromSpace(par_space)
 
                 if (abs(coord.c - coord_king.c) + abs(coord.r - coord_king.r) == 1):
                     check = True
@@ -35,17 +33,17 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def diag(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == Piece.W_B or piece == Piece.B_B or piece == Piece.W_Q or piece == Piece.B_Q):
+        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece_Type.BISHOP or piece == Piece_Type.QUEEN):
                 check = True
                 return
 
-            coord_piece = Coord(par_space)
+            coord_piece = Coord.fromSpace(par_space)
             if (abs(coord.c - coord_piece.c) + abs(coord.r - coord_piece.r) == 2):
-                if (piece == Piece.W_K or piece == Piece.B_K):
+                if (piece == Piece_Type.KING):
                     check = True
                     return
-                if (piece == Piece.W_P or piece == Piece.B_P):
+                if (piece == Piece_Type.PAWN):
                     if ((par_player == Player.White and (coord_piece.r == coord.r + 1)) or (par_player == Player.Black and (coord_piece.r == coord.r - 1))):
                         check = True
                         return
@@ -59,8 +57,8 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def L(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece.___ and ToPlayer(piece) != par_player):
-            if (piece == Piece.W_N or piece == Piece.B_N):
+        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+            if (piece == Piece_Type.KNIGHT):
                 check = True
                 return
 
@@ -69,27 +67,29 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
 
 
 def IsEmpty(par_piece):
-    is_empty = par_piece == Piece.___
-    
+    is_empty = par_piece == Piece_Type.___
+
     return is_empty
 
 
-def IsOpponentPiece(par_piece, par_player):
-    if not IsPiece(par_piece): return False
+def IsOpponentPiece_Type(par_piece, par_player):
+    if not IsPiece_Type(par_piece):
+        return False
 
     is_opponent_piece = ToPlayer(par_piece) != par_player
-    
+
     return is_opponent_piece
 
 
-def IsPiece(par_piece):
+def IsPiece_Type(par_piece):
     is_piece = not IsEmpty(par_piece)
-    
+
     return is_piece
 
 
-def IsPlayerPiece(par_piece, par_player):
-    if not IsPiece(par_piece): return False
+def IsPlayerPiece_Type(par_piece, par_player):
+    if not IsPiece_Type(par_piece):
+        return False
 
     is_player_piece = ToPlayer(par_piece) == par_player
 
@@ -105,12 +105,12 @@ def ForEachSpaceHorizontalAndVertical(par_function, par_space: Space, par_board:
                 continue
 
             dest = Coord(int(coord.c + h), int(coord.r + v))
-            
-            while  dest.isValid():
+
+            while dest.isValid():
                 space = dest.toSpace()
                 par_function(space)
 
-                if (par_board[space] != Piece.___):
+                if (par_board[space] != Piece_Type.___):
                     break
 
                 dest.c += h
@@ -123,12 +123,12 @@ def ForEachSpaceDiagonal(par_function, par_space: Space, par_board: numpy.array)
     for h in range(-1, 2, 2):
         for v in range(-1, 2, 2):
             dest = Coord(int(coord.c + h), int(coord.r + v))
-            
+
             while dest.isValid():
                 space = dest.toSpace()
                 par_function(space)
 
-                if (par_board[space] != Piece.___):
+                if (par_board[space] != Piece_Type.___):
                     break
 
                 dest.c += h
@@ -150,6 +150,22 @@ def ForEachSpaceL(par_function, par_space: Space, par_board: numpy.array = []):
                 par_function(space)
 
 
-def ToPlayer(par_piece: Piece) -> Player:
-    assert (par_piece != Piece.___)
-    return Player.White if par_piece <= W_LAST else Player.Black
+def ToPlayer(par_piece: Piece_Type) -> Player:
+    assert (par_piece != Piece_Type.___)
+    return Player.White if par_piece <= Piece_Type_LAST else Player.Black
+
+
+def mapFenCharToPiece(char: str):
+    """Parse a FEN (Forsyth-Edwards Notation) string into a piece"""
+    piece_mapping = {'p': Piece_Type.PAWN, 'r': Piece_Type.ROOK, 'n': Piece_Type.KNIGHT,
+                     'b': Piece_Type.BISHOP, 'q': Piece_Type.QUEEN, 'k': Piece_Type.KING}
+
+    return ChessPiece(piece_mapping[char.lower()], Player.White if char.isupper() else Player.Black)
+
+
+def mapPgnCharToPiece(char, player):
+    """Parse a PGN (Portable Game Notation) string into a piece"""
+    piece_mapping = {
+        'P': [Piece_Type.PAWN,  Piece_Type.B_P], 'R': [Piece_Type.ROOK, Piece_Type.B_R], 'N': [Piece_Type.KNIGHT, Piece_Type.B_N], 'B': [Piece_Type.W_B, Piece_Type.B_B], 'Q': [Piece_Type.W_Q, Piece_Type.B_Q], 'K': [Piece_Type.KING, Piece_Type.B_K]
+    }
+    return piece_mapping[char][0] if player == Player.White else piece_mapping[char][1]

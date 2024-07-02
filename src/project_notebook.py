@@ -13,25 +13,25 @@
 #     name: python3
 # ---
 
+import ChessPuzzleData
 from Action import Action
 from Actions import Actions
-from ChessEnums import Piece, Player, Space
-import ChessEnums
+from ChessEnums import Piece_Type, Player, Space
 from Coord import Coord
 from Node import Node, Expand, Solution
 from PathCost import PathCost
 from Result import Result
 from Search import Search
 from State import State
-from UtilityFunctions import    ForEachSpaceDiagonal,\
-                                ForEachSpaceHorizontalAndVertical,\
-                                ForEachSpaceL, IsCheckForPlayer, ToPlayer
+from UtilityFunctions import ForEachSpaceDiagonal, \
+    ForEachSpaceHorizontalAndVertical, \
+    ForEachSpaceL, IsCheckForPlayer, ToPlayer
 
 print("Hello. This will be a great project.")
 
 # (Temporary) Print classes / functions to ensure they compile
 
-print(Action(Space.A1, Space.A2, Piece.W_P))
+print(Action(Space.A1, Space.A2, Piece_Type.PAWN))
 print(Action(Space.A1, Space.A1) == Action(Space.A2, Space.A2))
 
 print(Coord(0, 0))
@@ -40,12 +40,15 @@ print(Coord(0, 0).toSpace())
 
 print(PathCost(State()))
 print(float(PathCost(State())))
-     
+
 print(Result(State(), Action()))
 
 print(State())
 
+
 def Func(par_space): pass
+
+
 print(IsCheckForPlayer(State().board, Player.White, Space.E1))
 print(ForEachSpaceHorizontalAndVertical(Func, Space.A1, State().board))
 print(ForEachSpaceDiagonal(Func, Space.A3, State().board))
