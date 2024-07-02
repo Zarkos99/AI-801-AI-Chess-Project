@@ -49,7 +49,7 @@ print(State())
 def Func(par_space): pass
 
 
-print(IsCheckForPlayer(State().board, Player.White, Space.E1))
+print(IsCheckForPlayer(State().board, Player.WHITE, Space.E1))
 print(ForEachSpaceHorizontalAndVertical(Func, Space.A1, State().board))
 print(ForEachSpaceDiagonal(Func, Space.A3, State().board))
 print(ForEachSpaceL(Func, Space.A2))

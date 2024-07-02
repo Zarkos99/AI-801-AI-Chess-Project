@@ -44,7 +44,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
                     check = True
                     return
                 if (piece == Piece_Type.PAWN):
-                    if ((par_player == Player.White and (coord_piece.r == coord.r + 1)) or (par_player == Player.Black and (coord_piece.r == coord.r - 1))):
+                    if ((par_player == Player.WHITE and (coord_piece.r == coord.r + 1)) or (par_player == Player.BLACK and (coord_piece.r == coord.r - 1))):
                         check = True
                         return
 
@@ -152,7 +152,7 @@ def ForEachSpaceL(par_function, par_space: Space, par_board: numpy.array = []):
 
 def ToPlayer(par_piece: Piece_Type) -> Player:
     assert (par_piece != Piece_Type.___)
-    return Player.White if par_piece <= Piece_Type_LAST else Player.Black
+    return Player.WHITE if par_piece <= Piece_Type_LAST else Player.BLACK
 
 
 def mapFenCharToPiece(char: str):
@@ -160,7 +160,7 @@ def mapFenCharToPiece(char: str):
     piece_mapping = {'p': Piece_Type.PAWN, 'r': Piece_Type.ROOK, 'n': Piece_Type.KNIGHT,
                      'b': Piece_Type.BISHOP, 'q': Piece_Type.QUEEN, 'k': Piece_Type.KING}
 
-    return ChessPiece(piece_mapping[char.lower()], Player.White if char.isupper() else Player.Black)
+    return ChessPiece(piece_mapping[char.lower()], Player.WHITE if char.isupper() else Player.BLACK)
 
 
 def mapPgnCharToPiece(char, player):
@@ -168,4 +168,4 @@ def mapPgnCharToPiece(char, player):
     piece_mapping = {
         'P': [Piece_Type.PAWN,  Piece_Type.B_P], 'R': [Piece_Type.ROOK, Piece_Type.B_R], 'N': [Piece_Type.KNIGHT, Piece_Type.B_N], 'B': [Piece_Type.W_B, Piece_Type.B_B], 'Q': [Piece_Type.W_Q, Piece_Type.B_Q], 'K': [Piece_Type.KING, Piece_Type.B_K]
     }
-    return piece_mapping[char][0] if player == Player.White else piece_mapping[char][1]
+    return piece_mapping[char][0] if player == Player.WHITE else piece_mapping[char][1]

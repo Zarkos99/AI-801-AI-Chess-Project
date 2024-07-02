@@ -23,7 +23,7 @@ def PawnActions(par_state: State, par_space: Space):
     board = par_state.board
     coord = Coord.fromSpace(par_space)
     player = par_state.player
-    is_white = player == Player.White
+    is_white = player == Player.WHITE
     promotion_start = ChessPiece(Piece_Type.KING, player)
     promotion_stop = ChessPiece(Piece_Type.KING, player)
     r_en_pessant = 4 if is_white else 3

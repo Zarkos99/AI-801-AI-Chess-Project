@@ -37,7 +37,7 @@ class ChessPuzzle():
 
     def findColorToPlay(self):
         fen_color_to_play = self.fen_board_start.split(" ")[1]
-        return Player.White if fen_color_to_play == "w" else Player.Black
+        return Player.WHITE if fen_color_to_play == "w" else Player.BLACK
 
     def convertPgnToListOfMoves(self):
         # Obtain last line in the pgn which contains the subsequent moves

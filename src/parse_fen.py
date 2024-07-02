@@ -5,7 +5,6 @@ import UtilityFunctions
 
 
 def parse_fen(fen):
-
     rows = fen.split(' ')[0].split('/')
     board = []
 
@@ -15,9 +14,8 @@ def parse_fen(fen):
             if char.isdigit():
                 board_row.extend([None] * int(char))
             else:
-                piece_type = UtilityFunctions.mapFenCharToPiece(char)
-                color = Player.White if char.isupper() else Player.Black
-                board_row.append(ChessPiece(piece_type, color))
+                piece = UtilityFunctions.mapFenCharToPiece(char)
+                board_row.append(ChessPiece(piece.piece_type, piece.color))
         board.append(board_row)
 
     return board

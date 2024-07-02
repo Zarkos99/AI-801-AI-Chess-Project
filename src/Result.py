@@ -20,10 +20,10 @@ def Result(par_state: State, par_action: Action):
     # En Pessant
     if ((piece_orig == Piece_Type.PAWN) and piece_dest == Piece_Type.___ and orig.c != dest.c):
         space_captured_pawn = Coord(
-            dest.c, dest.r - 1 if player == Player.White else dest.r + 1)
+            dest.c, dest.r - 1 if player == Player.WHITE else dest.r + 1)
 
         assert state.board[space_captured_pawn] == (
-            Piece_Type.PAWN if player == Player.White else Piece_Type.PAWN)
+            Piece_Type.PAWN if player == Player.WHITE else Piece_Type.PAWN)
         state.board[space_captured_pawn] = Piece_Type.___
 
     # Castle
@@ -49,21 +49,21 @@ def Result(par_state: State, par_action: Action):
     state.moves.append(par_action)
 
     if (piece_orig == Piece_Type.KING):
-        state.king_space[Player.White] = par_action.dest
-        state.king_moved[Player.White] = True
+        state.king_space[Player.WHITE] = par_action.dest
+        state.king_moved[Player.WHITE] = True
 
     if (piece_orig == Piece_Type.KING):
-        state.king_space[Player.Black] = par_action.dest
-        state.king_moved[Player.Black] = True
+        state.king_space[Player.BLACK] = par_action.dest
+        state.king_moved[Player.BLACK] = True
 
     if (par_action.orig == Space.A1):
-        state.rookA_moved[Player.White] = True
+        state.rookA_moved[Player.WHITE] = True
     if (par_action.orig == Space.A8):
-        state.rookA_moved[Player.Black] = True
+        state.rookA_moved[Player.BLACK] = True
     if (par_action.orig == Space.H1):
-        state.rookH_moved[Player.White] = True
+        state.rookH_moved[Player.WHITE] = True
     if (par_action.orig == Space.H8):
-        state.rookH_moved[Player.Black] = True
+        state.rookH_moved[Player.BLACK] = True
 
     # Check
     king_space = state.king_space[player]

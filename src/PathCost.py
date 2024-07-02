@@ -33,7 +33,7 @@ class PathCost:
                 b_pieces += cost
 
         self.piece_weight = (
-            w_pieces / b_pieces) if player == Player.White else (b_pieces / w_pieces)
+            w_pieces / b_pieces) if player == Player.WHITE else (b_pieces / w_pieces)
         self.child_count = 0
         self.min_child_cost = 0.0
         self.expanded = False
