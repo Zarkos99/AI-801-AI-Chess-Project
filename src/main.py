@@ -28,7 +28,7 @@ black_bishop = pygame.transform.scale(black_bishop, asset_size)
 black_knight = pygame.image.load('assets/images/black_knight.png')
 black_knight = pygame.transform.scale(black_knight, asset_size)
 black_pawn = pygame.image.load('assets/images/black_pawn.png')
-black_pawn = pygame.transform.scale(black_pawn, (65, 65))
+black_pawn = pygame.transform.scale(black_pawn, asset_size)
 white_queen = pygame.image.load('assets/images/white_queen.png')
 white_queen = pygame.transform.scale(white_queen, asset_size)
 white_king = pygame.image.load('assets/images/white_king.png')
@@ -40,17 +40,17 @@ white_bishop = pygame.transform.scale(white_bishop, asset_size)
 white_knight = pygame.image.load('assets/images/white_knight.png')
 white_knight = pygame.transform.scale(white_knight, asset_size)
 white_pawn = pygame.image.load('assets/images/white_pawn.png')
-white_pawn = pygame.transform.scale(white_pawn, (65, 65))
+white_pawn = pygame.transform.scale(white_pawn, asset_size)
 
 game_piece_asset_map = {
     "black_queen": black_queen,
-    "black_king": black_knight,
+    "black_king": black_king,
     "black_rook": black_rook,
     "black_bishop": black_bishop,
     "black_pawn": black_pawn,
     "black_knight": black_knight,
     "white_queen": white_queen,
-    "white_king": white_knight,
+    "white_king": white_king,
     "white_rook": white_rook,
     "white_bishop": white_bishop,
     "white_pawn": black_pawn,
@@ -87,7 +87,7 @@ def draw_pieces(fen_state: str):
             if board_item is not None:
                 asset_name = board_item.color + "_" + board_item.piece_type
                 screen.blit(
-                    game_piece_asset_map[asset_name], (row * TILE_WIDTH, col * TILE_HEIGHT))
+                    game_piece_asset_map[asset_name], (col * TILE_HEIGHT, row * TILE_WIDTH,))
 
 
 RUN = True
