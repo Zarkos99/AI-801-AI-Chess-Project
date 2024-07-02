@@ -21,6 +21,7 @@ from Coord import Coord
 from Node import Node, Expand, Solution
 from PathCost import PathCost
 from Result import Result
+from Search import Search
 from State import State
 from UtilityFunctions import    ForEachSpaceDiagonal,\
                                 ForEachSpaceHorizontalAndVertical,\
@@ -55,5 +56,7 @@ print(len(Actions(State())))
 print(Node(State()))
 print(Expand(Node(State())))
 print(Solution(Node(State())))
+
+print(Search(State(), 1.0))
 
 # Please add new classes and functions here to be printed
