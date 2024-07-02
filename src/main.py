@@ -53,7 +53,7 @@ game_piece_asset_map = {
     "white_king": white_king,
     "white_rook": white_rook,
     "white_bishop": white_bishop,
-    "white_pawn": black_pawn,
+    "white_pawn": white_pawn,
     "white_knight": white_knight,
 }
 
