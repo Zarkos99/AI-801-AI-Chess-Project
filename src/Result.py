@@ -3,14 +3,14 @@ from ChessEnums import Player
 from ChessEnums import Space
 from State import State
 from Action import Action
-import Coord
+from Coord import Coord
 import UtilityFunctions
 
 
 def Result(par_state: State, par_action: Action):
     state = par_state
-    orig = par_action.orig
-    dest = par_action.dest
+    orig = Coord.fromSpace(par_action.orig)
+    dest = Coord.fromSpace(par_action.dest)
     piece_orig = par_state.board[par_action.orig]
     piece_dest = par_state.board[par_action.dest]
     player = par_state.player

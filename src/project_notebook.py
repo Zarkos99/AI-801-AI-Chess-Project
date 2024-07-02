@@ -18,6 +18,7 @@ from Actions import Actions
 from ChessEnums import Piece, Player, Space
 import ChessEnums
 from Coord import Coord
+from Node import Node, Expand, Solution
 from PathCost import PathCost
 from Result import Result
 from State import State
@@ -50,5 +51,9 @@ print(ForEachSpaceDiagonal(Func, Space.A3, State().board))
 print(ForEachSpaceL(Func, Space.A2))
 
 print(len(Actions(State())))
+
+print(Node(State()))
+print(Expand(Node(State())))
+print(Solution(Node(State())))
 
 # Please add new classes and functions here to be printed
