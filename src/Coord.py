@@ -6,6 +6,11 @@ class Coord:
         self.c = c
         self.r = r
 
+    def __eq__(self, other):
+        if isinstance(other, Coord):
+            return self.c == other.c and self.r == other.r
+        return False
+
     @classmethod
     def fromSpace(cls, par_space: Space):
         c = par_space // 8
@@ -14,7 +19,7 @@ class Coord:
 
     def isValid(self):
         is_valid = (0 <= self.c < 8) and (0 <= self.r < 8)
-        
+
         return is_valid
 
     def toSpace(self) -> Space:
