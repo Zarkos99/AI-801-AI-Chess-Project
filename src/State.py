@@ -1,33 +1,37 @@
 
-from ChessEnums import Space
-from ChessEnums import Player
-from ChessEnums import Piece
+from ChessEnums import Space, Piece_Type, Player
+from ChessPiece import ChessPiece
 
 
 class State:
     def __init__(self) -> None:
-        self.board = [Piece.___]*len(Space)
+        self.board = [ChessPiece()]*len(Space)
         self.board[Space.A2] = self.board[Space.B2] = self.board[Space.C2] = self.board[Space.D2] = self.board[
-            Space.E2] = self.board[Space.F2] = self.board[Space.G2] = self.board[Space.H2] = Piece.W_P
-        self.board[Space.B1] = self.board[Space.G1] = Piece.W_N
-        self.board[Space.C1] = self.board[Space.F1] = Piece.W_B
-        self.board[Space.A1] = self.board[Space.H1] = Piece.W_R
-        self.board[Space.D1] = Piece.W_Q
-        self.board[Space.E1] = Piece.W_K
+            Space.E2] = self.board[Space.F2] = self.board[Space.G2] = self.board[Space.H2] = ChessPiece(Piece_Type.PAWN, Player.WHITE)
+        self.board[Space.B1] = self.board[Space.G1] = ChessPiece(
+            Piece_Type.KNIGHT, Player.WHITE)
+        self.board[Space.C1] = self.board[Space.F1] = ChessPiece(
+            Piece_Type.BISHOP, Player.WHITE)
+        self.board[Space.A1] = self.board[Space.H1] = ChessPiece(
+            Piece_Type.ROOK, Player.WHITE)
+        self.board[Space.D1] = ChessPiece(Piece_Type.QUEEN, Player.WHITE)
+        self.board[Space.E1] = ChessPiece(Piece_Type.KING, Player.WHITE)
 
         self.board[Space.A7] = self.board[Space.B7] = self.board[Space.C7] = self.board[Space.D7] = self.board[
-            Space.E7] = self.board[Space.F7] = self.board[Space.G7] = self.board[Space.H7] = Piece.B_P
-        self.board[Space.B8] = self.board[Space.G8] = Piece.B_N
-        self.board[Space.C8] = self.board[Space.F8] = Piece.B_B
-        self.board[Space.A8] = self.board[Space.H8] = Piece.B_R
-        self.board[Space.D8] = Piece.B_Q
-        self.board[Space.E8] = Piece.B_K
+            Space.E7] = self.board[Space.F7] = self.board[Space.G7] = self.board[Space.H7] = ChessPiece(Piece_Type.PAWN, Player.BLACK)
+        self.board[Space.B8] = self.board[Space.G8] = ChessPiece(
+            Piece_Type.KNIGHT, Player.BLACK)
+        self.board[Space.C8] = self.board[Space.F8] = ChessPiece(
+            Piece_Type.BISHOP, Player.BLACK)
+        self.board[Space.A8] = self.board[Space.H8] = ChessPiece(
+            Piece_Type.ROOK, Player.BLACK)
+        self.board[Space.D8] = ChessPiece(Piece_Type.QUEEN, Player.BLACK)
+        self.board[Space.E8] = ChessPiece(Piece_Type.KING, Player.BLACK)
 
         self.moves = []
-        self.king_space = [ Space.E1, Space.E8 ]
-        self.king_moved = [ False, False ]
-        self.rookA_moved = [ False, False ]
-        self.rookH_moved = [ False, False ]
+        self.king_space = [Space.E1, Space.E8]
+        self.king_moved = [False, False]
+        self.rookA_moved = [False, False]
+        self.rookH_moved = [False, False]
         self.player = Player(len(self.moves) % 2)
         self.check = False
-        
