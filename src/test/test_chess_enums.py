@@ -1,7 +1,6 @@
 import unittest
 from ChessEnums import Piece_Type, Player, Space, Piece_Type_FIRST, Piece_Type_LAST
 from enum import Enum, IntEnum
-from enum import EnumMeta
 
 class TestEnums(unittest.TestCase):
 
@@ -29,7 +28,6 @@ class TestEnums(unittest.TestCase):
 
     def test_Space_enum(self):
         self.assertTrue(issubclass(Space, IntEnum))
-        self.assertTrue(isinstance(Space.__members__, EnumMeta))
         self.assertEqual(len(Space), 64)  # Check number of members
 
     def test_Space_enum_values(self):
