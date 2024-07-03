@@ -33,5 +33,5 @@ class State:
         self.king_moved = [False, False]
         self.rookA_moved = [False, False]
         self.rookH_moved = [False, False]
-        self.player = Player(len(self.moves) % 2)
+        self.player = Player.WHITE if len(self.moves) % 2 == 0 else Player.BLACK
         self.check = False
