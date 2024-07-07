@@ -5,6 +5,7 @@ from ChessPiece import ChessPiece
 
 class State:
     def __init__(self) -> None:
+        # regular flat array
         self.board = [ChessPiece()]*len(Space)
         self.board[Space.A2] = self.board[Space.B2] = self.board[Space.C2] = self.board[Space.D2] = self.board[
             Space.E2] = self.board[Space.F2] = self.board[Space.G2] = self.board[Space.H2] = ChessPiece(Piece_Type.PAWN, Player.WHITE)

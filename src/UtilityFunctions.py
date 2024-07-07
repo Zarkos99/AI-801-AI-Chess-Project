@@ -65,35 +65,17 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     ForEachSpaceL(L, par_king)
     return check
 
+def IsEmpty(par_piece: ChessPiece) -> bool:
+    return par_piece.piece_type == Piece_Type.___
 
-def IsEmpty(par_piece):
-    is_empty = par_piece == Piece_Type.___
+def IsOpponentPiece(par_piece: ChessPiece, par_player: Player) -> bool:
+    return IsPiece(par_piece) and ToPlayer(par_piece) != par_player
 
-    return is_empty
+def IsPiece(par_piece: ChessPiece) -> bool:
+    return not IsEmpty(par_piece)
 
-
-def IsOpponentPiece(par_piece, par_player):
-    if not IsPiece(par_piece):
-        return False
-
-    is_opponent_piece = ToPlayer(par_piece) != par_player
-
-    return is_opponent_piece
-
-
-def IsPiece(par_piece):
-    is_piece = not IsEmpty(par_piece)
-
-    return is_piece
-
-
-def IsPlayerPiece(par_piece, par_player):
-    if not IsPiece(par_piece):
-        return False
-
-    is_player_piece = ToPlayer(par_piece) == par_player
-
-    return is_player_piece
+def IsPlayerPiece(par_piece: ChessPiece, par_player: Player) -> bool:
+    return IsPiece(par_piece) and ToPlayer(par_piece) == par_player
 
 
 def ForEachSpaceHorizontalAndVertical(par_function, par_space: Space, par_board: numpy.array):
@@ -150,9 +132,9 @@ def ForEachSpaceL(par_function, par_space: Space, par_board: numpy.array = []):
                 par_function(space)
 
 
-def ToPlayer(par_piece: Piece_Type) -> Player:
-    assert (par_piece != Piece_Type.___)
-    return Player.WHITE if par_piece <= Piece_Type_LAST else Player.BLACK
+def ToPlayer(par_piece: ChessPiece) -> Player:
+    assert not IsEmpty(par_piece)
+    return par_piece.color
 
 
 def mapFenCharToPiece(char: str):
@@ -163,9 +145,9 @@ def mapFenCharToPiece(char: str):
     return ChessPiece(piece_mapping[char.lower()], Player.WHITE if char.isupper() else Player.BLACK)
 
 
-def mapPgnCharToPiece(char, player):
+def mapPgnCharToPiece(char: str, player: Player):
     """Parse a PGN (Portable Game Notation) string into a piece"""
     piece_mapping = {
-        'P': [Piece_Type.PAWN,  Piece_Type.B_P], 'R': [Piece_Type.ROOK, Piece_Type.B_R], 'N': [Piece_Type.KNIGHT, Piece_Type.B_N], 'B': [Piece_Type.W_B, Piece_Type.B_B], 'Q': [Piece_Type.W_Q, Piece_Type.B_Q], 'K': [Piece_Type.KING, Piece_Type.B_K]
+        'P': [Piece_Type.PAWN], 'R': [Piece_Type.ROOK], 'N': [Piece_Type.KNIGHT], 'B': [Piece_Type.BISHOP], 'Q': [Piece_Type.QUEEN], 'K': [Piece_Type.KING]
     }
-    return piece_mapping[char][0] if player == Player.WHITE else piece_mapping[char][1]
+    return piece_mapping[char][0]
