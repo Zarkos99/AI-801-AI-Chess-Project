@@ -50,11 +50,16 @@ class TestStateInitialization(unittest.TestCase):
     def test_other_attributes_initialization(self):
         state = self.state
 
+        allFalse = {
+            Player.WHITE: False,
+            Player.BLACK: False
+        }
+
         self.assertEqual(state.moves, [])
-        self.assertEqual(state.king_space, [Space.E1, Space.E8])
-        self.assertEqual(state.king_moved, [False, False])
-        self.assertEqual(state.rookA_moved, [False, False])
-        self.assertEqual(state.rookH_moved, [False, False])
+        self.assertEqual(state.king_space, { Player.WHITE: Space.E1, Player.BLACK: Space.E8})
+        self.assertEqual(state.king_moved, allFalse)
+        self.assertEqual(state.rookA_moved, allFalse)
+        self.assertEqual(state.rookH_moved, allFalse)
         self.assertEqual(state.player, Player.WHITE)
         self.assertFalse(state.check)
 

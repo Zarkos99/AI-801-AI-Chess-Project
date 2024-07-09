@@ -30,9 +30,21 @@ class State:
         self.board[Space.E8] = ChessPiece(Piece_Type.KING, Player.BLACK)
 
         self.moves = []
-        self.king_space = [Space.E1, Space.E8]
-        self.king_moved = [False, False]
-        self.rookA_moved = [False, False]
-        self.rookH_moved = [False, False]
+        self.king_space = {
+            Player.WHITE: Space.E1,
+            Player.BLACK: Space.E8
+        }
+        self.king_moved = {
+            Player.WHITE: False,
+            Player.BLACK: False
+        }
+        self.rookA_moved = {
+            Player.WHITE:False,
+            Player.BLACK: False
+        }
+        self.rookH_moved = {
+            Player.WHITE: False,
+            Player.BLACK: False
+        }
         self.player = Player.WHITE if len(self.moves) % 2 == 0 else Player.BLACK
         self.check = False

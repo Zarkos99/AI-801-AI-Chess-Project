@@ -12,12 +12,12 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def h_and_v(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+        if (piece.piece_type != Piece_Type.___ and ToPlayer(piece) != par_player):
             if (piece == Piece_Type.ROOK or piece == Piece_Type.QUEEN):
                 check = True
                 return
 
-            if (piece == Piece_Type.KING):
+            if (piece.piece_type == Piece_Type.KING):
                 coord_king = Coord.fromSpace(par_space)
 
                 if (abs(coord.c - coord_king.c) + abs(coord.r - coord_king.r) == 1):
@@ -33,17 +33,17 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def diag(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+        if (piece.piece_type != Piece_Type.___ and ToPlayer(piece) != par_player):
             if (piece == Piece_Type.BISHOP or piece == Piece_Type.QUEEN):
                 check = True
                 return
 
             coord_piece = Coord.fromSpace(par_space)
             if (abs(coord.c - coord_piece.c) + abs(coord.r - coord_piece.r) == 2):
-                if (piece == Piece_Type.KING):
+                if (piece.piece_type == Piece_Type.KING):
                     check = True
                     return
-                if (piece == Piece_Type.PAWN):
+                if (piece.piece_type == Piece_Type.PAWN):
                     if ((par_player == Player.WHITE and (coord_piece.r == coord.r + 1)) or (par_player == Player.BLACK and (coord_piece.r == coord.r - 1))):
                         check = True
                         return
@@ -57,7 +57,7 @@ def IsCheckForPlayer(par_board: numpy.array, par_player: Player, par_king: Space
     def L(par_space: Space):
         nonlocal check
         piece = par_board[par_space]
-        if (piece != Piece_Type.___ and ToPlayer(piece) != par_player):
+        if (piece.piece_type != Piece_Type.___ and ToPlayer(piece) != par_player):
             if (piece == Piece_Type.KNIGHT):
                 check = True
                 return
