@@ -12,10 +12,10 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state for a white player with specific pieces
         self.mock_state.player = Player.WHITE
         self.mock_state.board = [
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.ROOK),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.QUEEN)
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.ROOK),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.QUEEN)
         ]
         path_cost = PathCost(self.mock_state)
         expected_piece_weight = (1 + 5) / (1 + 9)  # 6 / 10 = 0.6
@@ -25,10 +25,10 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state for a black player with specific pieces
         self.mock_state.player = Player.BLACK
         self.mock_state.board = [
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.ROOK),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.QUEEN)
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.ROOK),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.QUEEN)
         ]
         path_cost = PathCost(self.mock_state)
         expected_piece_weight = (1 + 9) / (1 + 5)  # 10 / 6 = 1.6667
@@ -38,8 +38,8 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state for a white player with no black pieces
         self.mock_state.player = Player.WHITE
         self.mock_state.board = [
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.ROOK)
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.ROOK)
         ]
         path_cost = PathCost(self.mock_state)
         self.assertEqual(float(path_cost), float('inf'))
@@ -48,8 +48,8 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state for a black player with no white pieces
         self.mock_state.player = Player.BLACK
         self.mock_state.board = [
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.ROOK)
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.ROOK)
         ]
         path_cost = PathCost(self.mock_state)
         self.assertEqual(float(path_cost), float('inf'))
@@ -58,8 +58,8 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state with pieces and set expanded to True
         self.mock_state.player = Player.WHITE
         self.mock_state.board = [
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.PAWN)
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.PAWN)
         ]
         path_cost = PathCost(self.mock_state)
         path_cost.expanded = True
@@ -69,8 +69,8 @@ class TestPathCost(unittest.TestCase):
         # Setup mock state with pieces and set expanded to True with children
         self.mock_state.player = Player.WHITE
         self.mock_state.board = [
-            MagicMock(player=Player.WHITE, piece_type=Piece_Type.PAWN),
-            MagicMock(player=Player.BLACK, piece_type=Piece_Type.PAWN)
+            MagicMock(color=Player.WHITE, piece_type=Piece_Type.PAWN),
+            MagicMock(color=Player.BLACK, piece_type=Piece_Type.PAWN)
         ]
         path_cost = PathCost(self.mock_state)
         path_cost.expanded = True

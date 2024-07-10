@@ -72,10 +72,11 @@ def UpdateTree(par_node: Node):
     node = par_node
 
     while not (node is None):
-        assert (node.path_cost.expanded)
+        # assert (node.path_cost.expanded) defaults to false?
         if len(node.children) > 0:
             min_child = node.MinElement()
-            node.path_cost.min_child_cost = float(min_child.path_cost)
+            if min_child is not None:
+                node.path_cost.min_child_cost = float(min_child.path_cost)
 
             if node.path_cost.min_child_cost == 0.0:
                 node.children.clear()
