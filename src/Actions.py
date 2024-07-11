@@ -247,7 +247,4 @@ def Actions(par_state: State):
                 case Piece_Type.KING:
                     actions.extend(KingActions(par_state, space))
 
-                case _:
-                    assert (0)
-
     return actions

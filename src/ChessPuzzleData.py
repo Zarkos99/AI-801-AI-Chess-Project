@@ -20,7 +20,7 @@ def obtain_latest_random_puzzle():
 
 
 class ChessPuzzle():
-    def __init__(self, title, url, publish_time, fen, pgn, image):
+    def __init__(self, title, url, publish_time, fen, pgn, image=None):
         self.title = title
         self.url = url
         self.publish_time = publish_time

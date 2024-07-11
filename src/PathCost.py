@@ -27,7 +27,7 @@ class PathCost:
                 case Piece_Type.QUEEN:
                     cost = 9
 
-            if (chess_piece.player == Player.WHITE):
+            if (chess_piece.color == Player.WHITE):
                 w_pieces += cost
             else:
                 b_pieces += cost
