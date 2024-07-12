@@ -2,10 +2,10 @@
 
 import urllib.request
 import json
+import io
 # Python Chess Board Class: https://python-chess.readthedocs.io/en/latest/core.html#board
 import chess
 import chess.pgn
-import io
 
 
 def obtain_latest_daily_puzzle():
@@ -34,10 +34,10 @@ def obtain_latest_random_puzzle():
 class ChessPuzzle():
     """A class definition of the data obtained from the Chess.com Published Data API
 
-        Important aspects of the data:
-            -Board start state:                 ChessPuzzle.game.board()
-            -Current Turn:                      ChessPuzzle.game.turn() (False = BLACK, True = WHITE)
-            -Subsequent Moves (Iterable):       ChessPuzzle.game.mainline_moves
+       Important aspects of the data:
+        -Board start state:                 ChessPuzzle.game.board()
+        -Current Turn:                      ChessPuzzle.game.turn() (False = BLACK, True = WHITE)
+        -Subsequent Moves (Iterable):       ChessPuzzle.game.mainline_moves
     """
 
     def __init__(self, title, url, publish_time, fen, pgn, image=None):
