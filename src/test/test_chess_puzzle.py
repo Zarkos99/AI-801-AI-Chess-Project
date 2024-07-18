@@ -12,14 +12,16 @@ import unittest
 from unittest.mock import patch, MagicMock
 import json
 import chess
-from src.chess_puzzle_data import obtain_latest_daily_puzzle, obtain_latest_random_puzzle, ChessPuzzle
+from src.chess_puzzle_data import obtain_latest_daily_puzzle, \
+    obtain_latest_random_puzzle, ChessPuzzle
 
 
 TITLE = "Daily Puzzle"
 URL = "https://www.chess.com/forum/view/daily-puzzles/7-11-2024-hanging-on-by-a-loose-thread"
 PUBLISH_TIME = 1720681200
 FEN = "4r1k1/5p2/6p1/7p/8/1bB2P2/1P1KNbP1/R7 b - - 0 1"
-PGN = "[Result \"*\"]\r\n[FEN \"4r1k1/5p2/6p1/7p/8/1bB2P2/1P1KNbP1/R7 b - - 0 1\"]\r\n\r\n1... Rd8+ 2. Nd4 Bxd4 3. Bxd4 Rxd4+ 4. Kc3 Ra4 5. Rxa4 Bxa4 *"
+PGN = "[Result \"*\"]\r\n[FEN \"4r1k1/5p2/6p1/7p/8/1bB2P2/1P1KNbP1/R7 b - - 0 1\"]\r\n\r\n1... \
+        Rd8+ 2. Nd4 Bxd4 3. Bxd4 Rxd4+ 4. Kc3 Ra4 5. Rxa4 Bxa4 *"
 
 
 def obtain_puzzle_data():
