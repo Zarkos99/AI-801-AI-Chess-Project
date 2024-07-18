@@ -45,6 +45,8 @@ class ChessPuzzle():
         self.title = title
         self.url = url
         self.publish_time = publish_time
+        self.fen = fen
+        self.image = image
         self.game = self.convert_pgn_to_game(pgn)
 
     def convert_pgn_to_game(self, raw_pgn):
