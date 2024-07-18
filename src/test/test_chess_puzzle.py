@@ -12,6 +12,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import json
 import chess
+# pylint: disable=import-error
 from src.chess_puzzle_data import obtain_latest_daily_puzzle, \
     obtain_latest_random_puzzle, ChessPuzzle
 
