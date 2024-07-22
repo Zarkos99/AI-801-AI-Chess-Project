@@ -14,7 +14,5 @@ def main():
         environment()
         agent(environment)
 
-    print("Hello World")
-
 if __name__ == '__main__':
     main()
