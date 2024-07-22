@@ -1,3 +1,18 @@
-"""Application main"""
+"""Module providing the project entry point."""
 
-print("Hello World")
+from agent import Agent
+from environment import Environment
+#from rational_agent import RationalAgent
+
+def main():
+    """Function called as the project entry point."""
+
+    environment = Environment()
+    agent = Agent() #RationalAgent()
+
+    while True:
+        environment()
+        agent(environment)
+
+if __name__ == '__main__':
+    main()
