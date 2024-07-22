@@ -1,6 +1,6 @@
 """Module providing the Agent class."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from agent_program import AgentProgram
 from architecture import Architecture
@@ -17,5 +17,5 @@ class Agent:
 
         self.__architecture.actuators(action, environment)
 
-    __agent_program: AgentProgram = AgentProgram()
-    __architecture: Architecture = Architecture()
+    __agent_program: AgentProgram = field(default_factory=AgentProgram)
+    __architecture: Architecture = field(default_factory=Architecture)
