@@ -17,12 +17,14 @@ class ProblemSolvingAgent(AgentProgram):
        internal structure visible to the problem-solving algorithms)."""
 
     def __call__(self, percept: Percept) -> Action:
+        failure = None
+
         self.__state = self.__update_state(self.__state, percept)
-        if self.__seq is None or len(self.__seq) <= 0:
+        if self.__seq is failure or len(self.__seq) <= 0:
             self.__goal = self.__formulate_goal(self.__state)
             self.__problem = self.__formulate_problem(self.__state, self.__goal)
             self.__seq = search(self.__problem)
-            if self.__seq is None:
+            if self.__seq is failure:
                 return None
 
         action = self.__seq[0]
@@ -33,12 +35,13 @@ class ProblemSolvingAgent(AgentProgram):
     def __formulate_goal(self, _state: AtomicRepresentation) -> Goal:
         return Goal()
 
-    def __formulate_problem(self, _state: AtomicRepresentation, _goal: Goal) -> Problem:
-        return Problem()
+    def __formulate_problem(self, state: AtomicRepresentation, _goal: Goal) -> Problem:
+        return Problem(state)
 
     def __update_state(self,
                        _state: AtomicRepresentation,
                        _percept: Percept)-> AtomicRepresentation:
+        # Convert percept to atomic representation
         return AtomicRepresentation()
 
     __seq: list[Action] = field(default_factory=list[Action])
