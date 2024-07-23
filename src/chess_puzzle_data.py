@@ -13,14 +13,14 @@ def obtain_latest_daily_puzzle():
     """Obtains the daily puzzle from the Chess.com Published Data API"""
     with urllib.request.urlopen("https://api.chess.com/pub/puzzle").read() as contents:
         deserialized_contents = json.loads(contents)
-    return ChessPuzzle(**deserialized_contents)
+        return ChessPuzzle(**deserialized_contents)
 
 
 def obtain_latest_random_puzzle():
     """Obtains a random puzzle from the Chess.com Published Data API"""
     with urllib.request.urlopen("https://api.chess.com/pub/puzzle/random").read() as contents:
         deserialized_contents = json.loads(contents)
-    return ChessPuzzle(**deserialized_contents)
+        return ChessPuzzle(**deserialized_contents)
 
 
 # Current board position is described with FEN (Forsyth–Edwards Notation) format
