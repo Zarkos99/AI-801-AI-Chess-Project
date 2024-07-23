@@ -17,5 +17,5 @@ class Agent:
 
         self.__architecture.actuators(action, environment)
 
-    __agent_program: AgentProgram = field(default_factory=AgentProgram)
+    __agent_program: AgentProgram = None
     __architecture: Architecture = field(default_factory=Architecture)

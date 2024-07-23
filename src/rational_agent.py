@@ -26,7 +26,9 @@ class RationalAgent(Agent):
        maximize its performance measure, given the evidence provided by the percept sequence and\
        whatever built-in knowledge the agent has."""
 
-    def __init_subclass__(cls):
+    def __init__(self):
+        super().__init__()
+
         agent_function = AgentFunction()
         performance_measure = PerformanceMeasure()
 

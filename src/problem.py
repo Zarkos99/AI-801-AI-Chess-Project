@@ -14,9 +14,9 @@ class Problem:
     """Class representing a problem, which is defined formally by five components: initial state,\
        actions, transition model, goal test, and path cost."""
 
-    initial_state: AtomicRepresentation = field(default_factory=AtomicRepresentation)
+    initial_state: AtomicRepresentation = None
     actions: Actions = field(default_factory=Actions)
     result: TransitionModel = field(default_factory=TransitionModel)
     goal_test: GoalTest = field(default_factory=GoalTest)
     path_cost: PathCost = field(default_factory=PathCost)
-    c: StepCost = field(default_factory=StepCost)
+    step_cost: StepCost = field(default_factory=StepCost)

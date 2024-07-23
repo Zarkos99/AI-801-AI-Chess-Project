@@ -2,13 +2,16 @@
 
 from agent import Agent
 from environment import Environment
-#from rational_agent import RationalAgent
+from problem_solving_agent import ProblemSolvingAgent
+from rational_agent import RationalAgent
 
 def main():
     """Function called as the project entry point."""
 
+    RationalAgent()
+
     environment = Environment()
-    agent = Agent() #RationalAgent()
+    agent = Agent(ProblemSolvingAgent())
 
     while True:
         environment()
