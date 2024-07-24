@@ -21,6 +21,7 @@ jobs:
           pip install chess
           pip install pygame
           pip install pycairo
+          pip install cairosvg
       - name: Analysing the code with pylint
         run: |
           pylint ./src

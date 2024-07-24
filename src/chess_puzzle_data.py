@@ -11,6 +11,7 @@ import chess.pgn
 
 def obtain_latest_daily_puzzle():
     """Obtains the daily puzzle from the Chess.com Published Data API"""
+    # pylint: disable=consider-using-with
     contents = urllib.request.urlopen(
         "https://api.chess.com/pub/puzzle").read()
     deserialized_contents = json.loads(contents)
@@ -19,6 +20,7 @@ def obtain_latest_daily_puzzle():
 
 def obtain_latest_random_puzzle():
     """Obtains a random puzzle from the Chess.com Published Data API"""
+    # pylint: disable=consider-using-with
     contents = urllib.request.urlopen(
         "https://api.chess.com/pub/puzzle/random").read()
     deserialized_contents = json.loads(contents)
