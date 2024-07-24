@@ -19,8 +19,6 @@ class Actuators:
     def __call__(self, action: Action, environment: Environment):
         pass
 
-    # TODO: Not certain if board is mutable in this context and therefore being passed by reference,
-    # need to confirm once operational
     def move(self, board: chess.Board, from_space, to_space):
         """Conduct a move on the chess board and add it to the stack"""
         move = chess.Move(from_space, to_space)
@@ -29,8 +27,6 @@ class Actuators:
         else:
             print("Illegal move: " + move)
 
-    # TODO: Not certain if board is mutable in this context and therefore being passed by reference,
-    # need to confirm once operational
     def undo_prev_move(self, board: chess.Board):
         """Pop a previous move from the stack"""
         board.pop()

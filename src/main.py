@@ -8,6 +8,7 @@ from board_display import display_board, WIDTH, HEIGHT
 # from rational_agent import RationalAgent
 
 
+# pylint: disable=no-member
 pygame.init()
 pygame.display.set_caption('AI801 Chess UI')
 pygame.font.Font('freesansbold.ttf', 20)
