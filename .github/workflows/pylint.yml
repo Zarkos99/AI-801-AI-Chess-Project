@@ -20,7 +20,7 @@ jobs:
           pip install pylint
           pip install chess
           pip install pygame
-          pip install cairo
+          pip install pycairo
       - name: Analysing the code with pylint
         run: |
           pylint ./src
