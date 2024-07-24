@@ -42,7 +42,7 @@ class ChessPuzzle:
         -Subsequent Moves (Iterable):       ChessPuzzle.game.mainline_moves
     """
 
-# pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
     def __init__(self, title, url, publish_time, fen, pgn, image=None):
         print("Chess Puzzle: " + url)
         self.title = title

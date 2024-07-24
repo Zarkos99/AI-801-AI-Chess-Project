@@ -2,12 +2,13 @@
 
 from dataclasses import dataclass
 
+from chess import Board
 from environment import Environment
-from percept import Percept
+
 
 @dataclass
 class Sensors:
     """Class representing sensors, through which an agent can perceive its environment."""
 
-    def __call__(self, environment: Environment) -> Percept:
+    def __call__(self, environment: Environment) -> Board:
         pass

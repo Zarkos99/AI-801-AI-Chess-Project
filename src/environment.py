@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 
+
 @dataclass
 class Environment:
     """Class representing an environment, which can be perceived and acted upon by an agent."""
