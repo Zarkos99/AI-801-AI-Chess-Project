@@ -42,7 +42,7 @@ def mock_https_url(mock_urlopen):
     mock_response = MagicMock()
     mock_response.read.return_value = json.dumps(
         obtain_puzzle_data()).encode('utf-8')
-    mock_urlopen.return_value = mock_response
+    mock_urlopen().__enter__.return_value = mock_response
 
 
 class TestChessPuzzle(unittest.TestCase):
