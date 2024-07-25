@@ -2,22 +2,24 @@
 
 from dataclasses import dataclass
 
+from chess import Board
 from action import Action
 from agent import Agent
 from agent_function import AgentFunction
-from percept_sequence import PerceptSequence
 from performance_measure import PerformanceMeasure
+
 
 def is_rational(_action: Action,
                 _performance_measure: PerformanceMeasure,
-                _percept_sequence: PerceptSequence,
+                _percept_sequence: Board,
                 _actions: list[Action] = None,
-                _prior_knowledge = None) -> bool:
+                _prior_knowledge=None) -> bool:
     """What is rational at any given time depends on four things:\
        -The performance measure that defines the criterion of success.\
        -The agent's prior knowledge of the environment.\
        -The actions that the agent can perform.\
        -The agent's percept sequence to date."""
+
 
 @dataclass
 class RationalAgent(Agent):

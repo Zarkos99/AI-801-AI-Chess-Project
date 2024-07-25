@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from typing import Tuple, Dict
 
+from chess import Board
 from action import Action
 from percept_sequence import PerceptSequence
 from chess_puzzle_data import obtain_latest_daily_puzzle
