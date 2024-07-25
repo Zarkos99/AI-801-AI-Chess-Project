@@ -8,12 +8,14 @@ class AgentFunction:
        agent's behavior that maps any given percept sequence to an action."""
 
     def __init__(self, puzzle: ChessPuzzle) -> None:
-        self.partial_table: Dict[str, str] = {}
+        self.partial_table: Dict[str, str] = {} #init this as empty
+        self.process_game(puzzle) # process the puzzle we were given
 
-    def __call__(self, fen_state: str) -> str:
-        print(self.partial_table)
+    def evaluateFen(self, fen_state: str) -> str:
+        print(self.partial_table) # TODO can be removed just for debug
         return self.partial_table.get(fen_state, "No action found")
 
+    # allow for processesing of additional puzzles
     def process_game(self, puzzle: ChessPuzzle):
         partial_table: Dict[str, str] = {}
 
@@ -25,23 +27,21 @@ class AgentFunction:
             next_node = node.variation(0)
             move = next_node.move
             percept_sequence.append(board.san(move))
-            board.push(move)
 
-            if len(percept_sequence) > 1:  # Ensure we have a previous percept to map the action to
+            if len(percept_sequence) >= 1:  # Ensure we have a previous percept to map the action to
                 # The percept sequence up to the current move maps to the current move (action)
                 partial_table[board.fen()] = percept_sequence[-1]
 
+            board.push(move)
             node = next_node
 
         self.partial_table.update(partial_table)
 
 # Use Kostis daily puzzle data parsed game
 puzzleOTD = obtain_latest_daily_puzzle()
-agentAction = AgentFunction(puzzleOTD)
-agentAction.process_game(puzzleOTD)
-
-print(agentAction)
+agent = AgentFunction(puzzleOTD)
 
 fen_state = puzzleOTD.game.board().fen()
-action = agentAction(fen_state)
+print(fen_state)
+action = agent.evaluateFen(fen_state)
 print(action)
