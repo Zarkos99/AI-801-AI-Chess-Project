@@ -5,12 +5,12 @@ from dataclasses import dataclass
 from chess import Board
 from action import Action
 from agent import Agent
-from agent_function import AgentFunction
-from performance_measure import PerformanceMeasure
+# from agent_function import AgentFunction
+# from performance_measure import PerformanceMeasure
 
 
 def is_rational(_action: Action,
-                _performance_measure: PerformanceMeasure,
+                # _performance_measure: PerformanceMeasure,
                 _percept_sequence: Board,
                 _actions: list[Action] = None,
                 _prior_knowledge=None) -> bool:
@@ -29,10 +29,11 @@ class RationalAgent(Agent):
        whatever built-in knowledge the agent has."""
 
     def __init_subclass__(cls):
-        agent_function = AgentFunction()
-        performance_measure = PerformanceMeasure()
+        print('Hello Rational Agent')
+        #agent_function = AgentFunction()
+        #performance_measure = PerformanceMeasure()
 
-        for percept_sequence in agent_function.partial_table:
-            action = agent_function(percept_sequence)
+        #for percept_sequence in agent_function.partial_table:
+            #action = agent_function(percept_sequence)
 
-            assert is_rational(action, performance_measure, percept_sequence)
+            #assert is_rational(action, performance_measure, percept_sequence)

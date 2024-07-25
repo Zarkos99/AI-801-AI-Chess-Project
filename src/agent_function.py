@@ -11,12 +11,13 @@ class AgentFunction:
         self.partial_table: Dict[str, str] = {} #init this as empty
         self.process_game(puzzle) # process the puzzle we were given
 
-    def evaluateFen(self, fen_state: str) -> str:
-        print(self.partial_table) # TODO can be removed just for debug
+    def evaluate_fen(self, fen_state: str) -> str:
+        """Prints expected move based on fen_state"""
         return self.partial_table.get(fen_state, "No action found")
 
     # allow for processesing of additional puzzles
     def process_game(self, puzzle: ChessPuzzle):
+        """Updates the partial_table with the provided ChessPuzzle"""
         partial_table: Dict[str, str] = {}
 
         board = puzzle.game.board()
@@ -41,7 +42,7 @@ class AgentFunction:
 puzzleOTD = obtain_latest_daily_puzzle()
 agent = AgentFunction(puzzleOTD)
 
-fen_state = puzzleOTD.game.board().fen()
-print(fen_state)
-action = agent.evaluateFen(fen_state)
+fen_to_test = puzzleOTD.game.board().fen()
+print(fen_to_test)
+action = agent.evaluate_fen(fen_to_test)
 print(action)
