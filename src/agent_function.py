@@ -1,20 +1,48 @@
 """Module providing the AgentFunction class."""
 
-from dataclasses import dataclass
+from typing import Dict
+from chess_puzzle_data import obtain_latest_daily_puzzle, ChessPuzzle
 
-from action import Action
-from percept_sequence import PerceptSequence
-
-@dataclass
 class AgentFunction:
-    """Class representing an agent function, which is an abstract mathematical description of an\
+    """Class representing an agent function, which is an abstract mathematical description of an
        agent's behavior that maps any given percept sequence to an action."""
 
-    def __init__(self):
-        self.partial_table = dict[PerceptSequence, Action]()
+    def __init__(self, puzzle: ChessPuzzle) -> None:
+        self.partial_table: Dict[str, str] = {} #init this as empty
+        self.process_game(puzzle) # process the puzzle we were given
 
-        # Convert puzzles to percept_sequence-action pairs and add to partial table
-        # ...
+    def evaluate_fen(self, fen_state: str) -> str:
+        """Prints expected move based on fen_state"""
+        return self.partial_table.get(fen_state, "No action found")
 
-    def __call__(self, percept_sequence: PerceptSequence) -> Action:
-        return self.partial_table[percept_sequence]
+    # allow for processesing of additional puzzles
+    def process_game(self, puzzle: ChessPuzzle):
+        """Updates the partial_table with the provided ChessPuzzle"""
+        partial_table: Dict[str, str] = {}
+
+        board = puzzle.game.board()
+        percept_sequence = []
+        node = puzzle.game
+
+        while node.variations:
+            next_node = node.variation(0)
+            move = next_node.move
+            percept_sequence.append(board.san(move))
+
+            if len(percept_sequence) >= 1:  # Ensure we have a previous percept to map the action to
+                # The percept sequence up to the current move maps to the current move (action)
+                partial_table[board.fen()] = percept_sequence[-1]
+
+            board.push(move)
+            node = next_node
+
+        self.partial_table.update(partial_table)
+
+# Use Kostis daily puzzle data parsed game
+puzzleOTD = obtain_latest_daily_puzzle()
+agent = AgentFunction(puzzleOTD)
+
+fen_to_test = puzzleOTD.game.board().fen()
+print(fen_to_test)
+action = agent.evaluate_fen(fen_to_test)
+print(action)

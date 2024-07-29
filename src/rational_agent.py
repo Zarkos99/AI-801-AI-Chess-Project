@@ -2,22 +2,24 @@
 
 from dataclasses import dataclass
 
+from chess import Board
 from action import Action
 from agent import Agent
-from agent_function import AgentFunction
-from percept_sequence import PerceptSequence
-from performance_measure import PerformanceMeasure
+# from agent_function import AgentFunction
+# from performance_measure import PerformanceMeasure
+
 
 def is_rational(_action: Action,
-                _performance_measure: PerformanceMeasure,
-                _percept_sequence: PerceptSequence,
+                # _performance_measure: PerformanceMeasure,
+                _percept_sequence: Board,
                 _actions: list[Action] = None,
-                _prior_knowledge = None) -> bool:
+                _prior_knowledge=None) -> bool:
     """What is rational at any given time depends on four things:\
        -The performance measure that defines the criterion of success.\
        -The agent's prior knowledge of the environment.\
        -The actions that the agent can perform.\
        -The agent's percept sequence to date."""
+
 
 @dataclass
 class RationalAgent(Agent):
@@ -26,13 +28,12 @@ class RationalAgent(Agent):
        maximize its performance measure, given the evidence provided by the percept sequence and\
        whatever built-in knowledge the agent has."""
 
-    def __init__(self):
-        super().__init__()
+    def __init_subclass__(cls):
+        print('Hello Rational Agent')
+        #agent_function = AgentFunction()
+        #performance_measure = PerformanceMeasure()
 
-        agent_function = AgentFunction()
-        performance_measure = PerformanceMeasure()
+        #for percept_sequence in agent_function.partial_table:
+            #action = agent_function(percept_sequence)
 
-        for percept_sequence in agent_function.partial_table:
-            action = agent_function(percept_sequence)
-
-            assert is_rational(action, performance_measure, percept_sequence)
+            #assert is_rational(action, performance_measure, percept_sequence)
