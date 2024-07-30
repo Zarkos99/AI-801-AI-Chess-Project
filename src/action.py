@@ -1,7 +1,5 @@
-"""Module providing the Action class."""
+"""Module providing the Action alias."""
 
-from dataclasses import dataclass
+from chess import Move
 
-@dataclass
-class Action:
-    """Class representing an action, which is an act the agent can execute from a given state."""
+Action = Move
