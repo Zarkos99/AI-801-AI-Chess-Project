@@ -2,21 +2,21 @@
 
 from agent import Agent
 from environment import Environment
-from problem_solving_agent import ProblemSolvingAgent
-from rational_agent import RationalAgent
+
+PUZZLE_PATH = "puzzles\\12-7-2016-variation-from-the-danish-gambit.txt"
 
 def main():
     """Function called as the project entry point."""
 
-    #RationalAgent(ProblemSolvingAgent())
-
-    environment = Environment()
-    agent = Agent(ProblemSolvingAgent())
-
+    environment = Environment(PUZZLE_PATH)
+    agent = Agent()
     run = True
+
     while run:
         run = environment()
-        #agent(environment)
+        
+        if run:
+            agent(environment)
 
 if __name__ == '__main__':
     main()

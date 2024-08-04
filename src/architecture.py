@@ -9,5 +9,5 @@ from sensors import Sensors
 class Architecture:
     """Class representing architecture, which is a computing device with sensors and actuators."""
 
-    actuators: Actuators = field(default_factory=Actuators)
     sensors: Sensors = field(default_factory=Sensors)
+    actuators: Actuators = field(default_factory=Actuators)

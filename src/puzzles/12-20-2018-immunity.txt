@@ -1,0 +1,1 @@
+{"title": "Immunity", "url": "https://www.chess.com/forum/view/daily-puzzles/12-20-2018-immunity", "publish_time": 1545292800, "fen": "8/p7/P7/2n5/8/1R6/8/K2k4 w - - 0 1", "pgn": "[Date \"????.??.??\"]\r\n[FEN \"8/p7/P7/2n5/8/1R6/8/K2k4 w - - 0 1\"]\r\n\r\n1. Rb6 Kd2 2. Rc6\r\n*", "image": "https://www.chess.com/dynboard?fen=8/p7/P7/2n5/8/1R6/8/K2k4%20w%20-%20-%200%201&size=2"}

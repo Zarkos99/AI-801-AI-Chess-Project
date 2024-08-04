@@ -12,10 +12,10 @@ class Agent:
        upon that environment through actuators."""
 
     def __call__(self, environment: Environment):
-        percept = self.__architecture.sensors(environment)
-        action = self.__agent_program(percept)
+        percept = self._architecture.sensors(environment)
+        action = self._agent_program(percept)
 
-        self.__architecture.actuators(action, environment)
+        self._architecture.actuators(action, environment)
 
-    __agent_program: AgentProgram = None
-    __architecture: Architecture = field(default_factory=Architecture)
+    _architecture: Architecture = field(default_factory=Architecture)
+    _agent_program: AgentProgram = field(default_factory=AgentProgram)

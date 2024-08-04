@@ -1,16 +1,38 @@
 """Module providing the Game class."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-from player import Player
-from problem import Problem
-from terminal_test import TerminalTest
-from utility_function import UtilityFunction
+from action import Action
+from state import State
 
 @dataclass
-class Game(Problem):
-    """Class representing a game, which is a kind of search problem."""
+class Game:
+    """Class representing a game, which is a particular type of search problem."""
+    
+    initial_state: State
 
-    player: Player = field(default_factory=Player)
-    terminal_test: TerminalTest = field(default_factory=TerminalTest)
-    utility: UtilityFunction = field(default_factory=UtilityFunction)
+    def actions(self, s: State) -> list[Action]:
+        legal_actions: list[Action] = []
+        
+        for m in s.board.legal_moves:
+            legal_actions.append(Action(m))
+
+        return legal_actions
+    
+    def result(self, s: State, a: Action) -> State:
+        board = s.board.copy()
+        board.push(a.move)
+        sp = State(board)
+
+        return sp
+    
+    def terminal_test(self, s: State) -> bool:
+        return s.board.is_game_over()
+    
+    def utility(self, s: State, p: bool) -> float:
+        outcome = s.board.outcome()
+        
+        if outcome.winner == p:
+            return float('inf')
+
+        return 0
