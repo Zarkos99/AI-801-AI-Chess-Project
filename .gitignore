@@ -4,3 +4,4 @@
 *.pyproj
 *.sln
 /.vs
+/Legacy2/.vs
