@@ -3,3 +3,5 @@
 /src/.vs
 *.pyproj
 *.sln
+/.vs
+/Legacy2/.vs
